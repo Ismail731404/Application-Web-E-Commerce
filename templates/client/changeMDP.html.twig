@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+{% block title  %}
+	Change le Mot de passe
+{% endblock %}
+{% block fils %}
+	<div class="card text-small mx-auto mb-auto mt-auto">
+		<div class="card-body">
+			<div class="card-header">
+				{% for message in app.flashes('message') %}
+					<div class="alert alert-warning">
+						{{message}}
+					</div>
+				{% endfor %}
+				<h3 class="h3 mb-3 font-weight-normal card-title">Changement du mot de passe</h3>
+			</div>
+			<br/>
+			{{form(form,{'attr':{'id': 'form_registeur'}})}}
+				<a href="{{path('app_user_parametresecurite')}}" class="btn btn-secondary card-link">Annuler</a>
+
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/additional-methods.min.js"></script>
+
+	<script src="{{ asset('js/changeMDP-valide.js') }}"></script>
+
+
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}panier
+{% endblock %}
+
+
+{% block fils %}
+	<div class="bg-light p-3">
+		<h1>Votre panier</h1>
+	</div>
+	{% if lists | length >0 %}
+
+		<div class="container">
+
+			<table class="table table-hover table-condensed">
+
+
+				<thead>
+					<tr>
+						<th style="width:50%">Dechets</th>
+						<th style="width:10%">Quantite du stock</th>
+						<th style="width:10%">Prix</th>
+						<th style="width:8%">Quantite</th>
+						<th style="width:22%" class="text-center">Total</th>
+						<th></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% set i = 0 %}
+					{% for list in lists %}
+						<tr>
+							<td data-th="dechetet">
+								<div class="row">
+									<div class="col-sm-2 hidden-xs">img</div>
+									<div class="col-sm-10">
+										<h4 class="nomargin">{{ list.dechet.designation }}</h4>
+
+										<p>{{ list.dechet.description }}.</p>
+
+									</div>
+								</div>
+							</td>
+							<td data-th="qttSttock" id="qttStock{{ i }}">{{ list.dechet.quantiteStock }}</td>
+
+
+							<td data-th="prix" id="prixUni{{ i }}">{{ list.dechet.prix }}</td>
+
+
+							<td data-th="Quantite">
+								<input type="number" id="{{ i }}" name="qttuni" class="form-control text-center" value="{{list.quantite}}">
+
+
+							</td>
+
+							<td data-th="totalUni" class="text-center" id="totalUni{{ i }}">{{ list.dechet.prix * list.quantite }}</td>
+
+
+							<td>
+								<a href="{{ path('panier_supp', {'id': list.dechet.id} )}}" class="btn btn-danger btn-sm">
+									<i class="fas fa-trash-alt"></i>
+
+								</a>
+							</td>
+						</tr>
+						{% set i = i + 1 %}
+					{% endfor %}
+
+				</tbody>
+				<tfoot>
+
+					<tr>
+
+						<td colspan="3" class="hidden-xs"></td>
+						<td class="hidden-xs text-center">
+							<strong>Total :
+								<span id="qttTotal">{{ qtt }}</span>
+							</strong>
+
+						</td>
+						<td id="totals">
+							{{ totals }}
+							{% set mdm_session = app.session.get ('qtt')%}
+							{{ dump(mdm_session) }}
+						</td>
+
+						<td>
+							<a href="#" class="btn btn-success btn-block">Acheter
+								<i class="fa fa-angle-right"></i>
+							</a>
+						</td>
+						<td></td>
+
+					</tr>
+				</tfoot>
+
+
+			</table>
+
+		</div>
+
+
+		<input type="hidden" id="i" name="numi" value="{{ i }}"/>
+
+
+	{% else %}
+		<p>Surprise, c'est vide !</p>
+	{% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('boots/js/quantiteInput.js') }}"></script>
+{% endblock %}

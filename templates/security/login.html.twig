@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Connexion
+{% endblock %}
+
+{% block fils %}
+	<div class="card text-small mx-sm-auto mt-sm-auto">
+
+		<div class="card-body">
+
+			<form method="post" id="form-login">
+				{% if error %}
+					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
+				<div class="card-header bg-white">
+					{% for message in app.flashes('message') %}
+						<div class="text-success text-small">
+							{{message}}
+						</div>
+					{% endfor %}
+					{% for message in app.flashes('danger') %}
+						<div class="text-danger text-small">
+							{{message}}
+						</div>
+					{% endfor %}
+
+					<h2 class="h3 mb-3 font-weight-normal card-title">S'identifier</h2>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail">Adresse électronique</label>
+					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Entrez votre e-mail" required autofocus>
+					<small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre.</small>
+				</div>
+				<div class="form-group">
+
+					<label for="inputPassword">Mot de passe</label>
+					<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+					<small id="passwordhelp" class="form-text text-muted">
+						<a href="{{path('app_forgotten_password')}}" class="text-small">(Mot de passe Oublie!)</a>
+					</small>
+				</div>
+				<input
+				type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				{# <div class="checkbox mb-3">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<label>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<input type="checkbox" name="_remember_me">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																Remember me
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</label>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														</div> #}
+
+				<div class="text-center">
+					<button class="btn btn-primary card-link " type="submit" id="btn-login">
+						Se connectez
+					</button>
+
+				</div>
+
+				<div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}" data-size="normal" data-bind="btn-login"></div>
+
+			</form>
+			<div class="card-footer text-muted text-center bg-white">
+				<small class="card-subtitle mb-2 text-muted">Nouveau chez Ovd ?</small>
+				<br/>
+				<a href="{{path('register')}}" class="btn btn-success card-link">Crée votre compte Ovd</a>
+			</div>
+
+
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js"></script>
+
+
+	<script src='https://www.google.com/recaptcha/api.js' async defer></script>
+	<script>
+		const forms = document.querySelectorAll('div.g-recaptcha');
+forms.forEach(form => {
+const formParentElement = form.parentElement;
+
+formParentElement.addEventListener("submit", e => {
+if (grecaptcha.getResponse() === '') {
+
+e.preventDefault();
+alert('Veuillez vérifier le recaptcha');
+
+}
+}, false)
+});
+	</script>
+{% endblock %}

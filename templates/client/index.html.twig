@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block title %}Votre compte
+{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block fils %}
+	<div class="container">
+		<h3>
+			Votre compte
+		</h3>
+		<div class="row flex text-small mx-auto mt-auto">
+
+
+			<div class="col-4">
+				<div class="card bg-light mb-4">
+					<div class="card-body">
+						<div class="row flex-wrap">
+
+							<img alt="Vos commandes" src="{{asset('images/icons/Box._CB485927607_.png') | imagine_filter ( 'compte' )}}" class="">
+							<h5 class="card-title text-right text-top">Vos commandes</h5>
+						</div>
+						<p class="card-text text-right text-top">Suivre,retourner ou acheter à nouveau.</p>
+
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-4">
+				<div class="card bg-light mb-4">
+					<div class="card-body">
+						<a href="{{path('app_user_parametresecurite')}}" class="card-link stretched-link">
+
+							<h5 class="card-title">Connexion et paramétres de sécurité</h5>
+						</a>
+						<p class="card-text">Modifier le l'identifiant,le nom et le numero de telephone mobile.</p>
+						<img alt="Connexion et paramètres de sécurité" src="{{asset('images/icons/sign-in-lock._CB485931462_.png')}}" class="card-img-left">
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="card bg-light mb-4">
+					<div class="card-body">
+						<a href="{{path('app_adresse_new')}}" class="card-link stretched-link">
+							<h5 class="card-title">Adresse</h5>
+						</a>
+						<p class="card-text">Modifier les adresses et les préférences de livraison des commandes</p>
+						<img alt="Adresses" src="{{asset('images/icons/address-map-pin._CB485934205_.png')}}" class="card-img-left">
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="card bg-light mb-4">
+					<div class="card-body">
+						<h5 class="card-title">Centre de messagerie</h5>
+						<p class="card-text">Afficher vos messages OVD</p>
+						<img alt="Centre de messagerie" src="{{asset('images/icons/message_centre._CB424635835_.png')}}" class="card-img-left">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

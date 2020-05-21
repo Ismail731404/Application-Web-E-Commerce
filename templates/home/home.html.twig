@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}tout nos produits {% endblock %}
+ {% block stylesheets %}   <link rel="stylesheet" href="{{ asset('style.css') }}" > {% endblock %}
+
+{% block fils %}
+
+
+<div class="jumbotron mt-2 ml-5 mr-5 bg-secondary" style=" padding:20px 10px 35px 10px">
+    
+     <section class="home">
+
+          <div class="slider">
+              
+                    {% include 'home/_slide.html.twig' with {publicites:publicites} only %}
+                   
+             
+          </div>
+
+        
+          <!-- controls  -->
+          <div class="controls">
+               <div class="prev "><</div>
+               <div class="next ">></div>
+          </div>
+
+          <!-- indicators -->
+          <div class="indicator ">
+          </div>
+
+     </section>
+
+</div>
+  <div class="container-fluid js-filter  " style="padding-right:100px; padding-left:70px">
+       <div class="row">
+            <div class="col-md-3 ">
+              {% include 'home/_filter.html.twig' with {form:form,min: min,max: max} only %}
+            </div>
+            
+             <div class="col-md-9">
+                 <div class="d-flex justify-content-end mb-2 js-filter-sorting">
+                
+                     {% include 'home/_sorting.html.twig' %}
+                 </div>
+                 <div class="grid js-filter-content">
+                      
+                     {% include 'home/_dechet.html.twig' %}
+                </div>
+                <div class="mt-4 js-filter-pagination">
+                     {% include 'home/_pagination.html.twig' %}
+                </div>
+             </div>
+
+       </div>
+
+       
+  </div>
+
+{% endblock %}
+{% block footer %}
+    {{ include ('home/_footer.html.twig') }}
+{% endblock %}
+
+
+{% block javascripts %}
+
+	 <script src="{{ asset('script.js') }}"></script> 
+
+{% endblock %}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-100">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta
+		http-equiv="X-UA-Compatible" content="ie=edge">
+		{# <meta http-equiv="refresh" content="300"> #}
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/css/select2.min.css" >
+       <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+	   {% block stylesheets %} {% endblock %}
+	   <style>
+	        .grid {
+				display:grid;
+				grid-template-columns:repeat(3, 1fr);
+				grid-gap:20px;
+			}
+			.filter{
+				display:block;
+				position: sticky;
+				top:20px;
+			}
+	   </style>
+     
+       {{ encore_entry_link_tags('app') }}
+		</head>
+
+
+		<body class="d-flex flex-column h-100">
+			{% block body %}
+				<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+
+
+					<a class="navbar-brand" href="{{path('home')}}">
+						{% if app.user %}
+							Hello
+							{{ app.user.FisrtName}}
+						{% endif %}
+						Mon Agence</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item">
+								<a class="nav-link {% if current_menu is defined and current_menu == 'properties' %} active {% endif %}" href="#">Achete
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Boutique</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Contact</a>
+							</li>
+					<li class="nav-item">
+						<a class="js-dwertpni nav-link" href="{{ path('panier_index') }}">
+							{% if app.session.get('qtt') %}
+
+								<span class="js-fwertpni">
+									{{app.session.get('qtt') }}
+								</span>
+							{% else %}
+
+								<span class="js-fwertpni">
+									0
+								</span>
+
+
+							{% endif %}
+							<br/>
+							Panier
+
+						</a>
+					</li>
+						</ul>
+						<form class="form-inline my-2 my-lg-0">
+							<input class="form-control mr-sm-2" type="search" placeholder="Recherche...." aria-label="Search">
+							<button class="btn btn btn-outline-dark my-2 my-sm-0" type="submit">Recherche</button>
+							{% if app.user %}
+								<a class="nav-link btn-secondary btn-md ml-2 active my-2 my-sm-0" href="{{path('app_logout')}}">Se deconnecte</a>
+							{% else %}
+								<a class="nav-link btn-secondary btn-md ml-2 active my-2 my-sm-0" href="{{path('app_login')}}">Se connecte</a>
+							{% endif %}
+						</form>
+					</div>
+
+				</nav>
+				
+
+				{% block fils %}{% endblock %}
+				{% block footer %} {% endblock %}
+			{% endblock %}
+			{% block javascripts %}{% endblock %}
+
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
+			<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+			{# <script src="{{ asset('boots/js/buttajouternon.js') }}"></script> #}
+			{{ encore_entry_script_tags('app') }}
+		</body>
+		
+	</html>

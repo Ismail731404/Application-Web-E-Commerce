@@ -1,0 +1,74 @@
+{% extends 'base.html.twig'   %}
+
+{% block title  dechet.Designation %}
+
+
+{% block fils %}
+	<div class="container mt-4">
+		<h2>
+			Modification de dechet</h2>
+		{{ form_start(form,{'attr':{'id' : 'form_registeur'}}) }}
+
+		<div class="row">
+			<div class="col-md-3">
+				{{ form_row(form.designation)}}</div>
+			<div class="col-md-3">
+				{{ form_row(form.prix)}}</div>
+			<div class="col-md-3 " style="margin-top:40px;">
+				{{ form_row(form.promo)}}</div>
+			<div class="col-md-3">
+				{{ form_row(form.ville)}}</div>
+		</div>
+		<div class="row">
+
+			<div class="col-md-3">
+				{{ form_row(form.quantiteStock)}}</div>
+			<div class="col-md-3">
+				{{ form_row(form.adresse)}}</div>
+			<div class="col-md-3">
+				{{ form_row(form.CodePostal)}}</div>
+			<div class="col-md-3">
+				{{ form_row(form.imageFile, {
+                    attr: {
+                        'placeholder': 'Veuillez selectione une image'
+                    }
+               })}}
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				{{ form_row(form.categorie)}}</div>
+			<div class="col-md-4 ">
+				{{ form_row(form.origine)}}</div>
+			<div class="col-md-4 ">
+				{{ form_row(form.nature)}}</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				{{ form_row(form.description)}}</div>
+		</div>
+
+
+		<button class="btn btn-primary">
+			Editer
+		</button>
+		{{ form_end(form,{'attr':{'id' : 'form_registeur'}}) }}
+	</div>
+{% endblock %}
+{% block javascripts %}
+
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/additional-methods.min.js"></script>
+	{# <script src="{{ asset('register-validedechet.js') }}"></script> #}
+
+
+	<script>
+		$('.custom-file-input').on('change', function (event) {
+var inputFile = event.currentTarget;
+$(inputFile).parent().find('.custom-file-label').html(inputFile.files[0].name);
+});
+	</script>
+{% endblock %}

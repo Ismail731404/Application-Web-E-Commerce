@@ -1,0 +1,29 @@
+liip_imagine:
+  driver: "gd"
+  filter_sets:
+    thumb:
+      quality: 85
+      filters:
+        thumbnail: { size: [360, 230], mode: outbound , allow_upscale: true }
+    medium:
+       quality: 85
+       filters:
+         thumbnail: { size: [400, 530], mode: outbound , allow_upscale: true }
+    slider:
+       quality: 100
+       filters:
+         thumbnail: { size: [350, 400], mode: outbound , allow_upscale: true}
+    publicite:
+       quality: 100
+       filters:
+         thumbnail: { size: [1920, 820], mode: outbound , allow_upscale: true}
+    compte:
+            quality: 75
+            filters:
+                        thumbnail:
+                            size: [63.06,42.2]
+                            mode: outbound                  
+       
+ 
+
+ 

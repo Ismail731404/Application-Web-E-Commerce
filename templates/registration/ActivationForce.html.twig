@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Active votre compte
+{% endblock %}
+
+{% block fils %}
+	{% if is_granted('ROLE_UNACTIVATED') %}
+
+
+		<div class="card text-small mx-sm-auto mt-sm-auto">
+
+			<div class="card-body">
+
+				<div class="card-header bg-white">
+					{% for message in app.flashes('message') %}
+						<div class="text-danger text-small">
+							{{message}}
+						</div>
+
+					{% endfor %}
+					{% for message in app.flashes('danger') %}
+						<div class="text-danger text-small">
+							{{message}}
+						</div>
+					{% endfor %}
+					<h3 class="h3 mb-3 font-weight-normal card-title">
+						Active votre compte
+					</h3>
+				</div>
+				<div>
+					<p>Confirmez que votre e-mail vous appartient.Cliquez sur le button qui apparaît dans l'e-mail envoye à
+						<em>{{app.user.email}}.</em>
+						N'oubliez pas de consulter votre dossier de spam
+					</p>
+					{# <p>
+																																																																																																						<a href="#">Renvoyez l'e-mail</a>
+																																																																																																					</p> #}
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+{% endblock %}

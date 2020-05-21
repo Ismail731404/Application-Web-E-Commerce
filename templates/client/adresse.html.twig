@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	Adresse de Livraison
+{% endblock %}
+{% block fils %}
+	<div class="card text-small mx-auto mb-auto mt-auto">
+		<div class="card-body">
+			<div class="card-header">
+				<h3 class="h3 mb-3 font-weight-normal card-title">
+
+					Adresse de Livraison
+
+				</h3>
+			</div>
+			<br/>
+			{{form_start(form)}}
+			<div class="form-group  col">
+
+
+				<div class="form-group row">
+
+					<div class="form-group  col-md-4">
+
+						{{ form_row(form.Pays)}}</div>
+					<div class="form-group  col-md-4">
+
+						{{ form_row(form.Ville)}}
+					</div>
+					<div class="form-group  col-md-4">
+
+						{{ form_row(form.Region)}}
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="form-group  col-md-4">
+
+						{{ form_row(form.Code_Postal)}}
+
+					</div>
+
+					<div class="form-group  col-md-4">
+
+						{{ form_row(form.Boite_Postal)}}
+					</div>
+					<div class="form-group  col-md-4">
+
+						{{ form_row(form.Rue)}}
+					</div>
+
+
+				</div>
+
+				{{form_end(form)}}
+<a href="{{path('app_account_info')}}" class="btn btn-secondary card-link" title='Annuler les modification'>Annuler</a>
+
+
+			</div>
+		</div>
+	{% endblock %}
+	{% block javascripts %}
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.min.js"></script>
+
+		<script src="{{ asset('js/register-valide.js') }}"></script>
+	{% endblock %}

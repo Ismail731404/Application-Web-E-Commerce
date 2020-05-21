@@ -1,0 +1,21 @@
+
+      {% for publicite in publicites %}
+        <div class="slide  {% if loop.first %} active {% endif %} " style="background-image: url('{{ vich_uploader_asset(publicite,'imageFile')  | imagine_filter('publicite') }}')">
+            <div class="container">
+                <div class="caption">
+                    <h1>{{ publicite.Nompublicite }}</h1>
+                    {% if publicite.Description %}
+                       <p>{{ publicite.Description }}</p>
+                    {%  endif %} 
+                    {% if publicite.Url %}
+                       <a href="{{ publicite.Url }}">Shop Now</a>
+                    {%  endif %} 
+                    
+                </div>
+            </div>
+        </div>
+         
+      {% endfor %}
+        
+     
+  

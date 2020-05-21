@@ -1,0 +1,52 @@
+
+   
+                            <div class="card mb-4  border-primary mb-3 h-95 d-inline-block" style="max-width: 100rem; background-color:#F2F2F2" id="dechet-{{dechet.id}}">
+                                    
+                                                <h3 class="card-title pl-3">
+                                                    <a href="{{ path('dechet.show',{slug: dechet.slug , id: dechet.id}) }}" class="card-link stretched-link"> 
+                                                    {{ dechet.Designation}}
+                                                    </a>
+                                                </h3>
+                                    <div class="pt-2  pl-2 pr-2 "  style="background-color:#F2F2F2">
+                                        {% if dechet.filename %}
+                                        <img src="{{ vich_uploader_asset(dechet,'imageFile')  | imagine_filter('thumb') }}" alt="card-img-top Max-width 100%" style="width: 100%; height: auto;">
+                                        {% else %}
+                                        <img src="{{ '/images/dechets/empty.jpg' }}" alt="card-img-top44" style="width:100%; height:auto;" >
+                                        {%  endif %} 
+                                        
+                                    </div>
+                                    <div class="card-body border-primary " style="background-color:#F2F2F2">
+                                                
+                                                <!-- | u.truncate(80, true) -->
+                                            {# <p class="card-text">{{ dechet.Description | nl2br | slice(0,80)  }}....</p> #}
+                                            <div class="text-primary" style="font-size:25px; font-weight: bold;">
+                                                {{ dechet.FormatPrix}} $   <span style="font-size:15px; font-weight: bold; color:#000" >par kilo</span>
+                                                {% if dechet.promo %}
+                                                     <span class="text text-warning float-right" > En Promo !</span>
+                                                {% endif %}
+                                            </div>
+
+                                            <div style="font-family:monospace">  
+                                            
+                                                <span class="badge" style="font-size: 14px">Type : </span>
+                                                {{dechet.Categorie.NomCategorie | replace({'les dechets en':''})}} 
+
+                                                <span class="badge" style="font-size: 14px">Quantite : </span>
+                                                {{dechet.QuantiteStock}} TO
+
+                                                <span class="badge" style="font-size: 14px">Origine :</span>
+                                                {% if dechet.Origine == 0 %}
+                                                Menagers
+                                                {% else  %}
+                                                Activite economique
+                                                {% endif%}
+                                                
+                                            </div>
+                                            
+                                    </div>
+
+                                    
+                            </div>
+ 
+                    
+                 

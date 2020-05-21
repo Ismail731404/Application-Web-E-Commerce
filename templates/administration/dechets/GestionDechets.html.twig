@@ -1,0 +1,166 @@
+{% extends 'base.html.twig' %}
+{% block title 'Gere les Dechets ' %}
+
+{% block stylesheets %}  {% endblock %} 
+{% block  fils %}
+
+<div class="container-fluid  mt-4">
+
+
+  <div class="row">
+         <div class="col-md-4 mt-5">
+                {% for message in app.flashes('success') %}
+                        <div class="alert alert-success" role="alert">
+                            <strong>{{ message }}</strong>
+                        </div>
+                        {% endfor %}
+                        
+                <div class="text-right mt-4">
+                        <a  class="btn btn-primary btn-lg btn-block" id="contactButton" {% if  form.vars.submitted %} style="display:none;" {% endif %} > Creer Une dechet</a>
+                </div>
+
+                <div id="contactForm" class="mt-4" {% if not form.vars.submitted %} style="display:none;" {% endif %}>
+                                <h2> Cree un nouveau Dechet </h2>
+                                {{ form_start(form,{'attr':{'id' : 'form_registeur'}}) }}
+
+                                        <div class="row">
+                                            <div class="col-md-4"> {{ form_row(form.designation)}}</div>
+                                            <div class="col-md-4"> {{ form_row(form.prix)}}</div>
+                                            <div class="col-md-4"  style="margin-top:30px;"> {{ form_row(form.promo)}}</div>
+
+                                        </div>
+                                            <div class="row">
+                                            
+                                            <div class="col-md-4"> {{ form_row(form.quantiteStock)}}</div>
+                                            <div class="col-md-4"> {{ form_row(form.adresse)}}</div>
+                                            <div class="col-md-4"> {{ form_row(form.CodePostal)}}</div>
+                                            
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4"> {{ form_row(form.ville)}}</div>
+                                            <div class="col-md-4"> {{ form_row(form.imageFile)}}</div>
+                                            <div class="col-md-4 "> {{ form_row(form.origine)}}</div>
+
+                                        </div>
+                                            <div class="row">
+                                            <div class="col-md-6 "> {{ form_row(form.nature)}}</div>
+                                            <div class="col-md-6"> {{ form_row(form.categorie,{'label': false ,'attr':{'hidden' : 'true'}})}}</div>
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12"> {{ form_row(form.description)}}</div>
+                                        </div>
+                                            <button  class="btn btn-primary"> Ajouter </button>
+                                            <a class="btn btn-primary float-right" href="#" id="dechetannule2" role="button"> Annule</a>
+                                        {{ form_end(form,{'attr':{'id' : 'form_registeur'}}) }}
+                    </div>
+
+
+         </div> 
+
+         <div class="col-md-8">
+                         
+
+                    <h2>Gere {{ categorie.NomCategorie}}</h2>
+   
+                       
+                        <div class="row flex">  
+                        
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nom Dechets</th>
+                                    <th>Action</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for dechet in dechets %}
+                                <tr>
+                                    <td scope="row">{{ dechet.Designation }}</td>
+                                    <td>
+                                
+                                    {# <a   class="btn btn-secondary" href="{{ path('administration_categorie_dechet_edite',{id: dechet.id})}}" role="button">Editer</a> #}
+                                    
+                                      <div  id="heading{{dechet.id}}" style="display:inline;">
+                                            <button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapse{{dechet.id}}" aria-expanded="false" aria-controls="collapse{{dechet.id}}">
+                                                Editer
+                                            </button>
+                                      </div>
+                                    
+                                    <form method="post" action="{{path('administration_categorie_dechet_delete',{id: dechet.id })}}" style="display:inline-block"  onsubmit="return confirm('Etes-vous vraiment sur ?')" >
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete'~ dechet.id)}}">
+                                    <button class="btn btn-danger">Supprime</button>
+                                    </form>
+                                    {% if dechet.QuantiteStock == 0 %}
+                                    <span class="alert alert-info auto " style="float:right; padding-right:10%; padding: 5px 5px 5px 5px;background-color:#00702A;color:#FFF" > la quantite stock est termine </span>
+                                    {% endif %}
+                                    </td>
+                                    
+                                </tr>
+                                </tr>
+                                         
+                                                
+                                            <td colspan="2">
+                                             <div id="collapse{{dechet.id}}" class="collapse" aria-labelledby="heading{{dechet.id}}" data-parent="#accordionExample">
+                                                    <form method="post" action="{{path('administration_categorie_dechet_edite',{id: dechet.id })}}" id="form_prenom">
+
+                                                        <input type="hidden" name="_method" value="edite">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('edite'~ dechet.id)}}">
+
+                                                        <div class="form-group">
+                                                            <label for="lastname">Nouveau Nom Dechet</label><br/>
+                                                            <input type="text" name="fisrtname" value="{{dechet.designation}}" class="form-control">
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <button class="btn btn-primary">Enregistre les modification</button>
+                                                            <button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapse{{dechet.id}}" aria-expanded="false" aria-controls="collapse{{dechet.id}}">
+                                                                     Annuler
+                                                             </button>
+                                                              <a   class="btn btn-secondary" href="{{ path('administration_categorie_dechet_editea',{id: dechet.id})}}" role="button">Editer Avance</a>
+                                                        </div>
+                                                    </form>
+                                             </div>
+                                            </td>
+                                                
+                                </tr> 
+                                {% endfor %}
+                                
+                            </tbody>
+                        </table>
+
+                      </div>
+
+
+         </div>
+  </div>
+   
+
+   
+   
+   
+</div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/additional-methods.min.js"></script>
+	 <script src="{{ asset('register-valide.js') }}"></script> 
+
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   
+
+{% endblock %}
+
+
