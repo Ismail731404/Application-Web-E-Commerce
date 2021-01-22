@@ -1,0 +1,397 @@
+
+  
+  
+  <div class="wrapper row0 " >
+ 
+  <div id="topbar" class="hoc clear"> 
+    <!-- ################################################################################################ -->
+	
+    <div class="fl_left">
+      <ul class="nospace">
+	     {% if app.user %} 
+	      <li style="padding-rigth:15px; font-family: 'Roboto' ; font-weight: bold; color: #A3D044; font-size:14px ">  Hello {{app.user.FisrtName}} </li>
+		  {% if is_granted('ROLE_USER') %}
+		  <li><a href="{{path('app_account_info')}}" style="font-weight: bold; font-size:14px ">Votre Compte</a></li>
+		 	{% else %}
+				  <li><a href="{{path('app_user_parametresecurite')}}" style="font-weight: bold; font-size:14px ">Votre Compte</a></li>
+		  {% endif %}
+	    {% endif %}
+        <li><a href="{{path('home')}}"><i class="fa fa-lg fa-home"></i></a></li>
+        <li><a href="{{path('apropos')}}">À propos</a></li>
+        <li><a href="{{path('contact')}}">Contact</a></li>
+        <li>
+		    {% if app.user %}
+				<a  href="{{path('app_logout')}}">Se deconnecte</a>
+			{% else %}
+				<a  href="{{path('app_login')}}">S'identifier</a>
+			{% endif %}
+		
+		</li>
+		{% if app.user == null %}
+		
+		 <li><a href="{{path('register')}}">S'INSCRIRE</a></li>
+		
+		{% endif %}
+       
+      </ul>
+    </div>
+    <div class="fl_right">
+      <ul class="nospace">
+        <li><i class="fa fa-phone"></i> +253 21 36 23 15</li>
+        <li><i class="fa fa-envelope-o"></i> noreply.collect.dechets@gmail.com </li>
+      </ul>
+    </div>
+    <!-- ################################################################################################ -->
+  </div>
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="wrapper row1">
+  <header id="header" classe="hoc clear"> 
+    <!-- ################################################################################################ -->
+         <div id="logo" class="fl_left">
+			<h1 style="font-size: 43px"><a href="{{path('home')}}">SITE WEB</a></h1>
+			<p >Entreprise de collecte de dechets</p>
+		</div>
+    <!-- ################################################################################################ -->
+    <nav id="mainav" class="fl_right">
+	  
+      <ul class="clear">
+	    
+        <li class="active"><a href="{{path('home')}}">Accueil</a></li>
+		{% if is_granted('ROLE_STOCK') %}
+		<li>
+				
+				<a  href="{{path('administration_categories')}}" style="padding-right:100px;">Administration du stock</a>	
+				
+					
+
+		</li>
+		{% else %}
+					{% if is_granted ('ROLE_ADMIN_ADMIN')%}
+						 <li> <a name="" id=""  href="{{path('adminindex')}}" role="button">Gestion des Employers</a> </li>
+						 <li style=" padding-right:50px;"> <a name="" id=""  href="{{path('adminclient')}}" role="button">Gestion des Client</a> </li>
+					{% else %}
+							{% if is_granted ('ROLE_VEND ') %}
+							<li><a href="{{path('service_vende')}}">Les commandes</a></li>
+						{% else %}
+						<li><a class="drop" href="#">Meilleures Ventes</a>
+						<ul>
+							<li><a href="pages/gallery.html">Les dechets en plastique</a></li>
+							<li><a href="pages/full-width.html">Les dechets en papier</a></li>
+							<li><a href="pages/sidebar-left.html">Les dechets en papier</a></li>
+							<li><a href="pages/sidebar-right.html">Les dechets en metal</a></li>
+							<li><a href="pages/basic-grid.html">Les dechets en verre</a></li>
+							<li><a href="pages/basic-grid.html">Les dechets organique</a></li>
+							<li><a href="pages/basic-grid.html">Les dechets synthetiques</a></li>
+							<li><a href="pages/basic-grid.html">Coton</a></li>
+						</ul>
+						</li>
+						<li><a class="drop" href="#">Derniers Nouveautes</a>
+						<ul>
+							
+							
+								<li><a href="pages/gallery.html">Les dechets en plastique</a></li>
+								<li><a href="pages/full-width.html">Les dechets en papier</a></li>
+								<li><a href="pages/sidebar-left.html">Les dechets en papier</a></li>
+								<li><a href="pages/sidebar-right.html">Les dechets en metal</a></li>
+								<li><a href="pages/basic-grid.html">Les dechets en verre</a></li>
+								<li><a href="pages/basic-grid.html">Les dechets organique</a></li>
+								<li><a href="pages/basic-grid.html">Les dechets synthetiques</a></li>
+								<li><a href="pages/basic-grid.html">Coton</a></li>
+							
+						</ul>
+						</li>
+						<li><a href="#">Les Plus Offerts</a></li>
+						<li style="padding-left:200px">
+							<a class="js-dwertpni nav-link" href="{{ path('panier_index') }}">
+								{% if app.session.get('qtt') %}
+
+									<span class="js-fwertpni">
+											<i class="fa fa-shopping-cart fa-2x" aria-hidden="true" style="color: #a9f506"></i> <span style=" background-color:#FFF; border-radius: 10px;color: black;display: inline-block;font-size: 18px;
+											line-height: 1; padding: 4px 7px; text-align: center; vertical-align: middle; white-space: nowrap;"> {{app.session.get('qtt')}} </span>
+									</span>
+								{% else %}
+
+									<span class="js-fwertpni">
+										<i class="fa fa-shopping-cart fa-2x" aria-hidden="true" style="color: #a9f506"></i> <span style=" background-color:#FFF; border-radius: 10px;color: black;display: inline-block;font-size: 18px;
+											line-height: 1; padding: 4px 7px; text-align: center; vertical-align: middle; white-space: nowrap;">0</span>
+									</span>
+					
+
+								{% endif %}
+								
+							</a>
+						</li>
+						{% endif %}
+						{% endif %}
+						{% endif %}
+      </ul>
+
+	
+    </nav>
+    <!-- ################################################################################################ -->
+  </header>
+</div>
+  
+  
+  
+  
+  
+  
+  
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{# <nav class="navbar navbar-expand-lg navbar-light  " >
+	<div class="container">
+		<a class="navbar-brand" href="#">OVD</a>
+			<a class="js-dwertpni nav-link" href="{{ path('panier_index') }}">
+				{% if app.session.get('qtt') %}
+
+					<span class="js-fwertpni">
+						{{app.session.get('qtt') }}
+					</span>
+				{% else %}
+
+					<span class="js-fwertpni">
+						0
+					</span>
+
+
+				{% endif %}
+				<br/>
+				Panier
+
+	        </a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="{{path('home')}}">Acceuil
+
+					</a>
+				</li>
+				<li class="nav-item ">
+				{% if is_granted('ROLE_STOCK') %}
+				<a class="nav-link text-dark" href="{{path('administration_categories')}}">Administration du stock</a>	
+				{% endif %}
+					
+
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-dark" href="#">Contact</a>
+
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-dark" href="{{path('app_account_info')}}">Votre compte</a>
+
+				</li>
+				<li class="nav-item">
+					
+					
+					
+				</li>
+
+
+			</ul>
+			
+			{% if app.user %}
+				<a class="nav-link btn-secondary btn-md ml-2 active my-2 my-sm-0" href="{{path('app_logout')}}">Se deconnecte</a>
+			{% else %}
+				<a class="nav-link btn-secondary btn-md ml-2 active my-2 my-sm-0" href="{{path('app_login')}}">Se connecte</a>
+			{% endif %}
+		
+
+		</div>
+
+	</div>
+</nav> #}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{# <nav class="navbar navbar-expand-lg navbar-mainbg ml-2 mr-2 rounded-right rounded-left ">
+
+
+	<a class="navbar-brand mb-0 h1 text-light bg-dark " href="{{path('home')}}">
+
+
+		{% if app.user %}
+			Hello
+			{{ app.user.FisrtName}}
+		{% endif %}
+		Mon Agence</a>
+	<a class="js-dwertpni nav-link" href="{{ path('panier_index') }}">
+		{% if app.session.get('qtt') %}
+
+			<span class="js-fwertpni">
+				{{app.session.get('qtt') }}
+			</span>
+		{% else %}
+
+			<span class="js-fwertpni">
+				0
+			</span>
+
+
+		{% endif %}
+		<br/>
+		Panier
+
+	</a>
+
+
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<i class="fas fa-bars text-white"></i>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav ml-auto">
+			<div class="hori-selector">
+				<div class="left"></div>
+				<div class="right"></div>
+			</div>
+			<li class="nav-item">
+				<a class="nav-link" href="javascript:void(0);">
+					<i class="fas fa-tachometer-alt"></i>Dashboard</a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" href="javascript:void(0);">
+					<i class="far fa-address-book"></i>Address Book</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="javascript:void(0);">
+					<i class="far fa-clone"></i>Components</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="javascript:void(0);">
+					<i class="far fa-calendar-alt"></i>Calendar</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="javascript:void(0);">
+					<i class="far fa-chart-bar"></i>Charts</a>
+			</li>
+			<li class="nav-item">
+				{% if app.user %}
+					<a class="nav-link " href="{{path('app_logout')}}">Se deconnecte</a>
+				{% else %}
+					<a class="nav-link " href="{{path('app_login')}}">Se connecte</a>
+				{% endif %}
+
+			</li>
+		</ul>
+	</div>
+</nav> #}
+
+
+{# <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+
+
+	<a class="navbar-brand" href="{{path('home')}}">
+		{% if app.user %}
+			Hello
+			{{ app.user.FisrtName}}
+		{% endif %}
+		Mon Agence</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link {% if current_menu is defined and current_menu == 'properties' %} active {% endif %}" href="#">Achete
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Boutique</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Contact</a>
+			</li>
+			<li class="nav-item">
+				<a class="js-dwertpni nav-link" href="{{ path('panier_index') }}">
+					{% if app.session.get('qtt') %}
+
+						<span class="js-fwertpni">
+							{{app.session.get('qtt') }}
+						</span>
+					{% else %}
+
+						<span class="js-fwertpni">
+							0
+						</span>
+
+
+					{% endif %}
+					<br/>
+					Panier
+
+				</a>
+			</li>
+		</ul>
+		<form class="form-inline my-2 my-lg-0">
+			<input class="form-control mr-sm-2" type="search" placeholder="Recherche...." aria-label="Search">
+			<button class="btn btn btn-outline-dark my-2 my-sm-0" type="submit">Recherche</button>
+			{% if app.user %}
+				<a class="nav-link btn-secondary btn-md ml-2 active my-2 my-sm-0" href="{{path('app_logout')}}">Se deconnecte</a>
+			{% else %}
+				<a class="nav-link btn-secondary btn-md ml-2 active my-2 my-sm-0" href="{{path('app_login')}}">Se connecte</a>
+			{% endif %}
+		</form>
+	</div>
+
+</nav> #}

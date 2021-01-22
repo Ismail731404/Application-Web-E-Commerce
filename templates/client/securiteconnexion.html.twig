@@ -7,50 +7,49 @@
 <div class="container mt-4">
     <div class="row flex">  
      
-<table class="table table-striped table-sm table-hover">
+        <table class="table table-striped table-sm table-hover">
 
-     <caption class="font-weight-bold"> Connexion et sécurité </caption>
-        <tbody>
-            <tr>
-                <td scope="row">
-                    Prenom:</br>{{ app.user.fisrtname }}
-                </td>
-                <td>
-                    <a class="btn btn-secondary" href="#modifierprenom" role="button" id="btnfisrtname">Modifier</a>
-                </td>
-            </tr>
-             <tr style="display: none;" class="table-info" id="formfisrtname">
-                    {# Pour cache le formulaire avant le click  #}
-                    <td colspan="2" align="center">
-                        <div class="col-md-4">
-                                        
-                            <form method="post" action="{{path('app_user_parametresecurite')}}" id="form_prenom">
-
-                                <input type="hidden" name="_method" value="Fisrtname">
-                                <input type="hidden" name="_token" value="{{ csrf_token('user'~ app.user.id)}}">
-                                
-                                <div class="form-group">
-                                    <label for="lastname">Nouveau Prenom</label><br/>
-                                    <input type="text" name="fisrtname" value="{{app.user.fisrtname}}" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-primary">Enregistre les modification</button>
-                                     <a href="#" class="btn btn-success" id="annulerprenom">Annuler</a>
-                                </div>
-                            </form>
-                        </div>
-
+            <caption class="font-weight-bold"> Connexion et sécurité </caption>
+            <tbody>
+                <tr>
+                    <td scope="row">
+                        Prenom:</br>{{ app.user.fisrtname }}
                     </td>
-                        
+                    <td>
+                        <a class="btn btn-secondary" href="#modifierprenom" role="button" id="btnfisrtname">Modifier</a>
+                    </td>
                 </tr>
-            <tr>
-                <td scope="row">
-                    Nom:</br>{{ app.user.lastname }}
-                </td>
-                <td>
-                    <a class="btn btn-secondary" href="#modifiernom" role="button" id="btnlastname">Modifier</a>
-                </td>
-            </tr>
+                    <tr style="display: none;" class="table-info" id="formfisrtname">
+                        {# Pour cache le formulaire avant le click  #}
+                        <td colspan="2" align="center">
+                            <div class="col-md-4">
+                                            
+                                <form method="post" action="{{path('app_user_parametresecurite')}}" id="form_prenom">
+
+                                    <input type="hidden" name="_method" value="Fisrtname">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('user'~ app.user.id)}}">
+                                    
+                                    <div class="form-group">
+                                        <label for="lastname">Nouveau Prenom</label><br/>
+                                        <input type="text" name="fisrtname" value="{{app.user.fisrtname}}" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary">Enregistre les modification</button>
+                                        <a href="#" class="btn btn-success" id="annulerprenom">Annuler</a>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </td>
+                    </tr>
+                <tr>
+                    <td scope="row">
+                        Nom:</br>{{ app.user.lastname }}
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" href="#modifiernom" role="button" id="btnlastname">Modifier</a>
+                    </td>
+                </tr>
                 <tr style="display: none;" class="table-info" id="formlastname">
                     {# Pour cache le formulaire avant le click  #}
                     <td colspan="2" align="center">
@@ -75,12 +74,12 @@
                     </td>
                         
                 </tr>
-             <tr>
+                <tr>
                     <td scope="row">Email:</br>{{ app.user.email }}</td>
                     <td>
                         <a class="btn btn-secondary" href="#modifieremail" role="button" id="btnemail">Modifier</a>
                     </td>
-            </tr>
+                </tr>
                <tr style="display: none;" class="table-info" id="formemail">
                 {# Pour cache le formulaire avant le click  #}
                     <td colspan="2" align="center">
@@ -95,62 +94,63 @@
                                     <label for="lastname">Nouveau Email</label><br/>
                                     <input type="email" name="email" value="{{app.user.email}}" class="form-control">
                                 </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary">Enregistre les modification</button>
-                                <a href="#" class="btn btn-success" id="annuleremail">Annuler</a>
-                            </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary">Enregistre les modification</button>
+                                    <a href="#" class="btn btn-success" id="annuleremail">Annuler</a>
+                                </div>
  
                             </form>
-                    </td>
                         </div>
+                    </td>
+                      
                 </tr>
-                        <tr>
-                            <td scope="row">
-                                Numero de telephone mobile:
-                                </br>{{ app.user.phone }}
-                            </td>
-                            <td>
-                                <a class="btn btn-secondary" href="#modifierphone" role="button" id="btnphone">Modifier</a>
-                            </td>
-                        </tr>
-                        <tr style="display: none;" class="table-info" id="formphone">{# Pour cache le formulaire avant le click  #}
-                            <td colspan="2" align="center">
-                                <div class="col-md-4">
+                <tr>
+                    <td scope="row">
+                        Numero de telephone mobile:
+                        </br>{{ app.user.phone }}
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" href="#modifierphone" role="button" id="btnphone">Modifier</a>
+                    </td>
+                </tr>
+                <tr style="display: none;" class="table-info" id="formphone">{# Pour cache le formulaire avant le click  #}
+                    <td colspan="2" align="center">
+                        <div class="col-md-4">
 
-                                    <form method="post" action="{{path('app_user_parametresecurite')}}" id="form_phone">
+                            <form method="post" action="{{path('app_user_parametresecurite')}}" id="form_phone">
 
-                                        <input type="hidden" name="_method" value="phone">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('user'~ app.user.id)}}">
+                                <input type="hidden" name="_method" value="phone">
+                                <input type="hidden" name="_token" value="{{ csrf_token('user'~ app.user.id)}}">
 
-                                        <div class="form-group">
-                                            <label for="phone">Nouveau Numero</label><br/>
-                                            <input type="phone" name="phone" value="{{app.user.phone}}" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <button class="btn btn-primary">Enregistre les modification</button>
-                                            <a href="#" class="btn btn-success" id="annulerphone">Annuler</a>
-                                        </div>
+                                <div class="form-group">
+                                    <label for="phone">Nouveau Numero</label><br/>
+                                    <input type="phone" name="phone" value="{{app.user.phone}}" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary">Enregistre les modification</button>
+                                    <a href="#" class="btn btn-success" id="annulerphone">Annuler</a>
+                                </div>
 
-                                    </form>
-                                </div>  
-                            </td>
-                        </tr>
+                            </form>
+                        </div>  
+                    </td>
+                </tr>
 
-            <tr>
-                <td scope="row">Password:</br><p>**********</p></td>
-                <td>
-                <a  class="btn btn-secondary" href="{{path('changeMDPOK')}}" role="button">Modifier</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-<a href="{{path('app_account_info')}}" class="btn btn-success font-weight-bold text-small">Terminer</a>
+                <tr>
+                    <td scope="row">Password:</br><p>**********</p></td>
+                    <td>
+                    <a  class="btn btn-secondary" href="{{path('changeMDPOK')}}" role="button">Modifier</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="{{path('app_account_info')}}" class="btn btn-success font-weight-bold text-small">Terminer</a>
+    </div>
+</div>
 
 {% endblock %}
 {% block javascripts %}
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js"></script>
 	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/additional-methods.min.js"></script>
-    <script src="{{ asset('js/formbtnshow.js') }}"></script>
-
+    <script src="{{ asset('scripts/JSFORMPNAC/formbtnshow.js') }}"></script>
 {% endblock %}

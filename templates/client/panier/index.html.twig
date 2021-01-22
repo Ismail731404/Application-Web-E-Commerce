@@ -5,8 +5,8 @@
 
 
 {% block fils %}
-	<div class="bg-light p-3">
-		<h1>Votre panier</h1>
+	<div class="bg-light pb-2 pt-2">
+		<h1 class="text-center" style="font-weight:bold; padding-top:5px">Votre panier</h1>
 	</div>
 	{% if lists | length >0 %}
 
@@ -20,7 +20,7 @@
 						<th style="width:50%">Dechets</th>
 						<th style="width:10%">Quantite du stock</th>
 						<th style="width:10%">Prix</th>
-						<th style="width:8%">Quantite</th>
+						<th style="width:20%">Quantite</th>
 						<th style="width:22%" class="text-center">Total</th>
 						<th></th>
 					</tr>
@@ -32,7 +32,14 @@
 						<tr>
 							<td data-th="dechetet">
 								<div class="row">
-									<div class="col-sm-2 hidden-xs">img</div>
+									<div class="col-sm-2 hidden-xs">
+									
+										{% if list.dechet.filename %}
+											<img src="{{ vich_uploader_asset(list.dechet,'imageFile') | imagine_filter('medium') }}" alt="card-img-top" style="width:100%; height:auto;">
+										{% else %}
+											<img src="{{ '/images/dechets/empty.jpg' | imagine_filter('medium') }}" alt="card-img-top" style="width:100%; height:auto;">
+										{%  endif %}
+									</div>
 									<div class="col-sm-10">
 										<h4 class="nomargin">{{ list.dechet.designation }}</h4>
 
@@ -48,49 +55,49 @@
 
 
 							<td data-th="Quantite">
-								<input type="number" id="{{ i }}" name="qttuni" class="form-control text-center" value="{{list.quantite}}">
+								<form action="{{ path('panier_ajouter', {'id': list.dechet.id} ) }}" method="post" id="form_id">
 
+
+									<input type="number" id="{{ i }}" name="qttuni" class="form-control text-center" value="{{list.quantite}}">
+								</form>
 
 							</td>
 
-							<td data-th="totalUni" class="text-center" id="totalUni{{ i }}">{{ list.dechet.prix * list.quantite }}</td>
+							<td data-th="totalUni" class="text-center" id="totalUni{{ i }}">{{ list.dechet.prix * list.quantite| number_format(0,'',' ') }} $</td>
 
-
+						
 							<td>
 								<a href="{{ path('panier_supp', {'id': list.dechet.id} )}}" class="btn btn-danger btn-sm">
-									<i class="fas fa-trash-alt"></i>
+
+
+									<i class="fas fa-trash-alt pt-2"></i>
 
 								</a>
 							</td>
 						</tr>
 						{% set i = i + 1 %}
 					{% endfor %}
-
+                   
 				</tbody>
 				<tfoot>
 
 					<tr>
-
+                        <td><a href="{{path('home')}}" class="btn btn-success btn-block pt-1" id="" >Poursuivre vos achats</a></td>
 						<td colspan="3" class="hidden-xs"></td>
 						<td class="hidden-xs text-center">
 							<strong>Total :
-								<span id="qttTotal">{{ qtt }}</span>
+
 							</strong>
 
 						</td>
 						<td id="totals">
-							{{ totals }}
-							{% set mdm_session = app.session.get ('qtt')%}
-							{{ dump(mdm_session) }}
+							{{ totals| number_format(0,'',' ') }} $
 						</td>
 
 						<td>
-							<a href="#" class="btn btn-success btn-block">Acheter
-								<i class="fa fa-angle-right"></i>
-							</a>
+							<a href="{{path('commnder')}}" class="btn btn-success btn-block btn-lg pt-1" id="js-acheter-panier">Acheter</a>
 						</td>
-						<td></td>
-
+						
 					</tr>
 				</tfoot>
 
@@ -104,11 +111,24 @@
 
 
 	{% else %}
-		<p>Surprise, c'est vide !</p>
+		<p></p>
+		  <div class="container">
+    <div class="col-12 mt-5">
+          
+          <div class="alert alert-warning text-center" role="alert">
+            <h4 class="alert-heading">Surprise,  votre panier c'est vide !</h4>
+              
+            <p> Revenez à l'<a href="{{path('home')}}" role="button" class="">acceuil</a><br/></p>
+          </div>
+
+    </div>
+</div>
 	{% endif %}
 
 {% endblock %}
 
 {% block javascripts %}
-	<script src="{{ asset('boots/js/quantiteInput.js') }}"></script>
+	<script src="{{ asset('scripts/JSFORMPNAC/quantiteInput.js') }}"></script>
+
+
 {% endblock %}

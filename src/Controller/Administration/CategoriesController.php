@@ -10,28 +10,31 @@ use App\Form\CategorieType;
 use App\Form\PubliciteFormType;
 use App\Repository\DechetRepository;
 use App\Repository\CategorieRepository;
+use App\Repository\PubliciteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-// /**
-// //  * @IsGranted("ROLE_STOCK")
-//  */
+/**
+* @IsGranted("ROLE_STOCK")
+ */
 class CategoriesController extends AbstractController
 {
 
 
 
     private $categorie;
+    private $publiciteRepos;
     private $em;
 
-    public function __construct(CategorieRepository $categorie, EntityManagerInterface $manager)
+    public function __construct(CategorieRepository $categorie, EntityManagerInterface $manager, PubliciteRepository $publiciteRepos)
     {
 
         $this->categorie = $categorie;
         $this->em = $manager;
+        $this->publiciteRepos = $publiciteRepos;
     }
     /**
      * @Route("/administration/categories", name="administration_categories")
@@ -93,6 +96,7 @@ class CategoriesController extends AbstractController
 
 
         $categories = $this->categorie->findAll();
+        $publicites = $this->publiciteRepos->findAll();
         return $this->render('administration/categories/GestionCategorie.html.twig', [
             'form' => $form->createView(),
             'categorie' => $categorie,
@@ -100,7 +104,8 @@ class CategoriesController extends AbstractController
             'form1' => $form1->createView(),
             'form2' => $form2->createView(),
             'form3' => $form3->createView(),
-            'dechet' => $dechet
+            'dechet' => $dechet,
+            'publicites' => $publicites
         ]);
     }
 
@@ -122,7 +127,7 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("/administration/categories/editer{id}", name="administration_categories_delete",methods="delete")
+     * @Route("/administration/categories/delete{id}", name="administration_categories_delete",methods="delete")
      */
 
     public function delete(Categorie $categorie, Request $request)
@@ -131,6 +136,53 @@ class CategoriesController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $categorie->getId(), $request->get('_token'))) {
 
             $this->em->remove($categorie);
+            $this->em->flush();
+            $this->addFlash('success', 'suppression effectuer ');
+        }
+
+
+        return $this->redirectToRoute('administration_categories');
+    }
+
+
+
+
+
+    /**
+     * @Route("/administration/categories/editer/Publicite{id}", name="administration_categories_editer_publicite")
+     */
+    public function editepub(Publicite $publicite, Request $request)
+    {
+
+
+        if ($this->isCsrfTokenValid('editepub' . $publicite->getId(), $request->get('_token'))) {
+            $publicite->setNompublicite($request->get('fisrtname'));
+            $publicite->setDescription($request->get('Description'));
+            $publicite->setUrl($request->get('Url'));
+
+            if ($request->get('imageFile')) {
+                $publicite->setFilename($request->get('imageFile'));
+                $publicite->setImageFile($request->files->get('imageFile'));
+            }
+
+            $this->em->persist($publicite);
+            $this->em->flush();
+            $this->addFlash('success', 'modification effectuer ');
+        }
+
+        return $this->redirectToRoute('administration_categories');
+    }
+
+    /**
+     * @Route("/administration/categories/delete/Publicite{id}", name="administration_categories_delete_publicite",methods="delete")
+     */
+
+    public function deletepub(Publicite $publicite, Request $request)
+    {
+
+        if ($this->isCsrfTokenValid('deletepub' . $publicite->getId(), $request->get('_token'))) {
+
+            $this->em->remove($publicite);
             $this->em->flush();
             $this->addFlash('success', 'suppression effectuer ');
         }

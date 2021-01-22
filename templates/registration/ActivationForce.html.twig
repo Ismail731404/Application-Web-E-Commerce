@@ -7,8 +7,10 @@
 {% block fils %}
 	{% if is_granted('ROLE_UNACTIVATED') %}
 
-
-		<div class="card text-small mx-sm-auto mt-sm-auto">
+    <div class="container">
+			
+		
+		<div class="card text-small  " style="margin-bottom:100px; margin-top:100px">
 
 			<div class="card-body">
 
@@ -24,7 +26,7 @@
 							{{message}}
 						</div>
 					{% endfor %}
-					<h3 class="h3 mb-3 font-weight-normal card-title">
+					<h3 class="h3 mb-3 font-weight-normal card-title text-center">
 						Active votre compte
 					</h3>
 				</div>
@@ -39,6 +41,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	{% endif %}
 
 {% endblock %}

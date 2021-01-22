@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Compte bloquer
+{% endblock %}
+
+{% block fils %}
+
+{% if is_granted('ROLE_BLOQUE') %}
+	<div class="container">
+    <div class="col-12 mt-5">
+          
+          <div class="alert alert-success text-center" role="alert">
+            <div class="card-body">
+
+				<div class="card-header bg-white">
+					{% for message in app.flashes('message') %}
+						<div class="text-danger text-small">
+							{{message}}
+						</div>
+
+					{% endfor %}
+					{% for message in app.flashes('danger') %}
+						<div class="text-danger text-small">
+							{{message}}
+						</div>
+					{% endfor %}
+					<h3 class="h3 mb-3 font-weight-normal card-title">
+						Compte Bloquer
+					</h3>
+				</div>
+				<div>
+					<p>Votre compte <em>{{app.user.email}}.</em> est bloquer par l'administrateur suite à vos activites sur le site 	
+						Cet dernier seras reactive ou bloquer après verification 
+                        Merci
+					</p>
+					{# <p>
+																																																																																																						<a href="#">Renvoyez l'e-mail</a>
+																																																																																															</p> #}
+				</div>
+			</div>
+          </div>
+
+    </div>
+    </div>  
+{% endif %}
+
+{% endblock %}

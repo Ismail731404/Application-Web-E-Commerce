@@ -1,9 +1,10 @@
 <?php
 
-
 namespace App\Controller;
 
 use DateTime;
+use DateInterval;
+use DateTimeZone;
 use App\Entity\User;
 use App\Entity\Client;
 use App\Form\UserType;
@@ -21,7 +22,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Egulias\EmailValidator\Validation\RFCValidation;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,7 +32,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class SecurityController extends AbstractController
 {
-    use TargetPathTrait;
+   
     private $manager;
     private $repository;
     public function __construct(UserRepository $dechet, EntityManagerInterface $manager)
@@ -48,15 +48,16 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         //if was a user redirect at home 
-        // if (!$this->isGranted("IS_AUTHENTICATED_REMEMBERED") && $this->getUser()) {
-        //     return $this->redirectToRoute('home');
-        // }
-        // $time = new DateTime('2020-04-11 16:05:12');
-        // $datetime2 = new DateTime('now');
-        // $interval = $time->diff($datetime2);
+        if ($this->isGranted("ROLE_ADMIN_ADMIN") && $this->getUser()) {
+            return $this->redirectToRoute('adminindex');
+        }   
 
-        // $in = $interval->format('%R%a%H%M%S');
-        // echo substr($in, 0, 2);
+        if ($this->isGranted("ROLE_STOCK")) {
+            return $this->redirectToRoute('administration_categories');
+        }
+
+
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -76,8 +77,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/app/register", name="register" , schemes={"https"})
      */
-     
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, AppCustomAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler,\Swift_Mailer $mailer): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, AppCustomAuthenticator $authenticator, \Swift_Mailer $mailer, GuardAuthenticatorHandler $guardHandler): Response
     {
 
         $client = new Client();
@@ -95,7 +95,7 @@ class SecurityController extends AbstractController
                 )
             );
             //Concatene l'indice telephonique avec le numero 
-            $phone = (string) ($form["foo"]["indicateur"]->getData() ." " . $form["foo"]["phone"]->getData());
+            $phone = (string) ($form["foo"]["indicateur"]->getData() . $form["foo"]["phone"]->getData());
             // On génère un token et on l'enregistre
             $client->setActivationToken(md5(uniqid()));
             //modifie le numero
@@ -200,7 +200,6 @@ class SecurityController extends AbstractController
      * On recupere le compte avec l'email
      * @Route("/oubli-pass", name="app_forgotten_password")
      */
-
     public function oubliPass(
         Request $request,
         \Swift_Mailer $mailer,
@@ -321,7 +320,8 @@ class SecurityController extends AbstractController
 
                 // On crée le message flash
                 $this->addFlash('message', 'Mot de passe mis à jour');
-
+                //disconnected the user
+                $this->get('security.token_storage')->getToken()->setAuthenticated(false);
                 // On redirige vers la page de connexion
                 return $this->redirectToRoute('app_login');
             } else {
@@ -340,67 +340,6 @@ class SecurityController extends AbstractController
 
 
     /**
-     * @Route("/app/registerEmployer", name="register_employer" , schemes={"https"})
-     */
-    
-    public function registerEmployer(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer): Response
-    {
-        $this->denyAccessUnlessGranted("ROLE_ADMIN_ADMIN");
-        $employer = new Employer();
-        $form = $this->createForm(EmployerType::class, $employer);
-        $form->handleRequest($request);
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password   
-
-            $employer->setPassword(
-                $passwordEncoder->encodePassword(
-                    $employer,
-                    $form["foo"]["password"]->getData()
-                )
-            );
-            //Concatene l'indice telephonique avec le numero 
-            $phone = (string) ($form["foo"]["indicateur"]->getData() . $form["foo"]["phone"]->getData());
-            // On génère un token et on l'enregistre
-            $employer->setActivationToken(md5(uniqid()));
-            //modifie le numero
-            $employer->setPhone($phone);
-            //save the  in the database
-            $this->manager->persist($employer);
-            $this->manager->flush();
-
-            // do anything else you need here, like send an email
-            // On crée le message
-            $message = (new \Swift_Message('Nouveau compte'))
-                // On attribue l'expéditeur
-                ->setFrom('ovd.officiel190@gmail.com')
-                // On attribue le destinataire
-                ->setTo($employer->getEmail())
-                // On crée le texte avec la vue cad ce le fichier activation qui va contenir le corps de l'email envoie a l'
-                ->setBody(
-                    $this->renderView(
-                        'emails/activation.html.twig',
-                        ['token' => $employer->getActivationToken()]
-                    ),
-                    'text/html'
-                );
-            //sending the message
-            $mailer->send($message);
-
-            // On génère un message pour affciher dans le login
-            $this->addFlash('message', 'Un code d\'activation vous etez envoie');
-
-            //rediriger vers le login
-            return $this->redirectToRoute('app_login');
-        }
-        //le formulaire a remplir
-        return $this->render('registration/registerEmployer.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
-    }
-
-    /**
      * le token est celui gere dans la fonction register et sera envoie comme lien
      * @Route("/app/activationforce", name="activationforce")
      */
@@ -408,5 +347,15 @@ class SecurityController extends AbstractController
     {
         $this->denyAccessUnlessGranted("ROLE_UNACTIVATED");
         return $this->render('registration/ActivationForce.html.twig');
+    }
+
+     /**
+     * le token est celui gere dans la fonction register et sera envoie comme lien
+     * @Route("/app/bloquerforce", name="bloquerforce")
+     */
+    public function bloquerForce(AppCustomAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler, Request $request)
+    {
+        $this->denyAccessUnlessGranted("ROLE_BLOQUE");
+        return $this->render('admin/Bloquer.html.twig');
     }
 }

@@ -1,7 +1,9 @@
 <?php
+
 namespace  App\Listener;
 
 use App\Entity\Dechet;
+use App\Entity\Publicite;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -19,37 +21,35 @@ class ImageCacheSubscriber implements EventSubscriber
      * @var UploaderHelper
      */
     private $uploaderHelper;
-    public function __construct(CacheManager $cacheManager , UploaderHelper $uploaderHelper)
+    public function __construct(CacheManager $cacheManager, UploaderHelper $uploaderHelper)
     {
-        $this->cacheManager=$cacheManager;
-        $this->uploaderHelper=$uploaderHelper;     
+        $this->cacheManager = $cacheManager;
+        $this->uploaderHelper = $uploaderHelper;
     }
-    
+
     public function getSubscribedEvents()
     {
-          return [
-              'preRemove',
-              'preUpdate'
-          ];  
+        return [
+            'preRemove',
+            'preUpdate'
+        ];
     }
 
     public function preRemove(LifecycleEventArgs $args)
     {
-        $entity=$args->getEntity();
-        if(!$entity instanceof Dechet)
-         return ;
-         $this->cacheManager->remove($this->uploaderHelper->asset($entity,'imageFile'));
-  
+        $entity = $args->getEntity();
+        if (!$entity instanceof Dechet && !$entity instanceof Publicite)
+            return;
+        $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile'));
     }
     public function preUpdate(PreUpdateEventArgs $args)
     {
-        $entity=$args->getEntity();
-      if(!$entity instanceof Dechet)
-       return ;
+        $entity = $args->getEntity();
+        if (!$entity instanceof Dechet && !$entity instanceof Publicite)
+            return;
 
-      if($entity->getImageFile() instanceof UploadedFile)
-      {
-           $this->cacheManager->remove($this->uploaderHelper->asset($entity,'imageFile'));
-      }
+        if ($entity->getImageFile() instanceof UploadedFile) {
+            $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile'));
+        }
     }
 }

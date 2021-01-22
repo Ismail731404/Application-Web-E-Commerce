@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block fils %}
+
+
+
+<div class="container">
+    <div class="col-12 mt-5">
+          
+          <div class="alert alert-danger text-center" role="alert">
+            <h4 class="alert-heading">Votre transaction n'est pas bien derouler</h4>
+              <p> <span> Cliquez le boutton </span> <strong style="font-size:15px;"> <a href="{{path('app_commander_mescommander')}}" role="button" class="card-link ">Vos Commandes</a></strong> pour consulte vos commander <br/></p>
+            <p> Ou revenez à l'acceuil <a href="{{path('home')}}" role="button" class="">Acceuil</a><br/></p>
+          </div>
+
+    </div>
+</div>
+
+
+{% endblock %}

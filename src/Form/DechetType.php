@@ -21,32 +21,31 @@ class DechetType extends AbstractType
             ->add('designation')
             ->add('description')
             ->add('prix')
-            ->add('promo',CheckboxType::class,[
-                'label' => 'En Promotion'
+            ->add('promo', CheckboxType::class, [
+                'label' => 'En Promotion',
+                'required' => false
             ])
             ->add('quantiteStock')
-            ->add('categorie',EntityType::class,[
-                'class'=> Categorie::class,
-                'choice_label'=> function($categorie)
-                {
+            ->add('categorie', EntityType::class, [
+                'class' => Categorie::class,
+                'choice_label' => function ($categorie) {
                     return $categorie->getNomCategorie();
                 }
             ])
-            ->add('imageFile',FileType::class,[
-                'required' =>false
+            ->add('imageFile', FileType::class, [
+                'required' => false
             ])
             ->add('ville')
             ->add('adresse')
-            ->add('CodePostal',TextType::class,[
-                'label'=> 'Code Postal '
+            ->add('CodePostal', TextType::class, [
+                'label' => 'Code Postal '
             ])
-            ->add('origine',ChoiceType::class,[
-                'choices' =>$this->getChoicesOrigine()
+            ->add('origine', ChoiceType::class, [
+                'choices' => $this->getChoicesOrigine()
             ])
-            ->add('nature',ChoiceType::class,[
-                'choices' =>$this->getChoicesNature()
-            ])
-        ;
+            ->add('nature', ChoiceType::class, [
+                'choices' => $this->getChoicesNature()
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -59,20 +58,17 @@ class DechetType extends AbstractType
     {
         $choices = Dechet::ORIGINE;
         $output = [];
-        foreach ($choices as $k => $v)
-        {
-            $output[$v] =$k;
+        foreach ($choices as $k => $v) {
+            $output[$v] = $k;
         }
         return $output;
-
     }
     public function getChoicesNature()
     {
         $choices = Dechet::NATURE;
         $output = [];
-        foreach ($choices as $k => $v)
-        {
-            $output[$v] =$k;
+        foreach ($choices as $k => $v) {
+            $output[$v] = $k;
         }
         return $output;
     }

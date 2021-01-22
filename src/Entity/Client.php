@@ -3,12 +3,18 @@
 namespace App\Entity;
 
 use DateTime;
+use DateInterval;
+use DateTimeZone;
+use App\Entity\Commande;
+use App\Entity\Reglement;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @Entity
@@ -18,6 +24,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Client extends User
 {
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->commandes = new ArrayCollection();
+        $this->reglements = new ArrayCollection();
+    }
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -44,6 +56,15 @@ class Client extends User
      * @ORM\Column(type="boolean")
      */
     private $terms;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="client", orphanRemoval=true)
+     */
+    private $commandes;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reglement", mappedBy="client", orphanRemoval=true)
+     */
+    private $reglements;
     public function getId(): ?int
     {
         return $this->id;
@@ -113,4 +134,82 @@ class Client extends User
         $this->setUpdateAt(new DateTime('now'));
         return $this;
     }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->setClient($this);
+        }
+
+        return $this;
+    }
+
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->contains($commande)) {
+            $this->commandes->removeElement($commande);
+            // set the owning side to null (unless already changed)
+            if ($commande->getClient() === $this) {
+                $commande->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reglement[]
+     */
+    public function getReglements(): Collection
+    {
+        return $this->reglements;
+    }
+    /**
+     * @return null|Reglement
+     */
+    public function getReglementParDefault()
+    {
+        foreach ($this->reglements as  $reg) {
+            if ($reg->getDefaultepaiement()) {
+                return $reg;
+                break;
+            }
+        }
+        return null;
+    }
+
+    public function addReglement(Reglement $reglement): self
+    {
+        if (!$this->reglements->contains($reglement)) {
+            $this->reglements[] = $reglement;
+            $reglement->setClient($this);
+        }
+
+        return $this;
+    }
+
+
+    public function removeReglement(Reglement $reglement): self
+    {
+        if ($this->reglements->contains($reglement)) {
+            $this->reglements->removeElement($reglement);
+            // set the owning side to null (unless already changed)
+            if ($reglement->getClient() === $this) {
+                $reglement->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+  
 }

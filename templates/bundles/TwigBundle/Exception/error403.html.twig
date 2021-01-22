@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}Page non autorise
+{% endblock %}
+
+{% block fils %}
+	<div class="text-center mx-auto mb-auto mt-auto">
+
+		<h1 class="alert alert-danger">Oops! Une erreur s'est produite</h1>
+
+		<h6>
+			Le serveur a renvoyé un "403 interdit".
+
+
+		</h6>
+
+
+		<p class="lead">
+			Cette page est restreindre pour certain utilisateur Sans détour, il n'est point de voyage... Retournez à la page d'accueil.
+		</p>
+
+		<p>
+			<a class="btn btn-primary text-uppercase" href="{{ path('home') }}">revenir à l'acceuil</a>.</p>
+
+	</div>
+
+{% endblock %}

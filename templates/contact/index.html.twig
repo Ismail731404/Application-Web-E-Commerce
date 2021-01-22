@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact!{% endblock %}
+
+{% block stylesheet %}
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="Contact/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Contact/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Contact/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Contact/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Contact/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Contact/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Contact/css/util.css">
+	<link rel="stylesheet" type="text/css" href="Contact/css/main.css">
+<!--===============================================================================================-->
+{% endblock %}
+{% block css %}
+  
+{% endblock %}
+{% block fils %}
+
+
+
+<div class="contact1">
+
+
+
+		<div class="container-contact1" style="background-color:#DDDDDD">
+			
+			
+			<div class="contact1-pic js-tilt" data-tilt>
+				{% for message in app.flashes('success') %}
+					<div class="alert alert-success" role="alert">
+						<strong>{{ message }}</strong>
+					</div>
+					{% endfor %}
+
+					{% if not form.vars.valid %}
+					<div class="alert  alert-danger" >
+					Veuillez bien remplir le formulaire 
+					</div>
+					{% endif %} 
+			
+						<script>
+						$(".alert").alert();
+						</script>
+				<img src="Contact/images/img-01.png"  alt="IMG">
+			</div>
+
+            {{ form_start(form,{ 'attr' : { 'class': 'contact1-form validate-form' } }) }}
+				<span class="contact1-form-title">
+					Envoyez-nous un message
+				</span>
+ 
+                <div class="row">
+                    
+                        <div class="wrap-input1 validate-input col-6" data-validate = "Name is required">
+                            {{ form_row(form.firstname,{ 'attr' : { 'class': 'input1' , 'placeholder': 'Prenom'} }) }}
+                                <span class="shadow-input1"></span>
+                        </div>
+                        <div class="wrap-input1 validate-input col-6" data-validate = "Name is required">
+                            {{ form_row(form.lastname,{ 'attr' : { 'class': 'input1' , 'placeholder': 'Nom' } }) }}
+                                <span class="shadow-input1"></span>
+                        </div>
+                </div>
+
+
+                 <div class="wrap-input1 validate-input" data-validate = "phone is required">
+                     {{ form_row(form.phone,{ 'attr' : { 'class': 'input1', 'placeholder': 'phone' } }) }}
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                     {{ form_row(form.email,{ 'attr' : { 'class': 'input1', 'placeholder': 'Email' } }) }}
+					<span class="shadow-input1"></span>
+				</div>
+
+				
+
+				<div class="wrap-input1 validate-input" data-validate = "Message is required">
+					{{ form_row(form.message,{ 'attr' : { 'class': 'input1', 'placeholder': 'Message' } }) }}
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="container-contact1-form-btn">
+					<button class="contact1-form-btn">
+						<span>
+							
+                            Envoyer l'mail
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			{{ form_end(form) }}
+		</div>
+	</div>
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    
+<!--===============================================================================================-->
+	<script src="Contact/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="Contact/vendor/bootstrap/js/popper.js"></script>
+	<script src="Contact/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="Contact/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="Contact/vendor/tilt/tilt.jquery.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+<!--===============================================================================================-->
+	<script src="Contact/js/main.js"></script>
+
+{% endblock %}

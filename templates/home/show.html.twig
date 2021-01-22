@@ -1,190 +1,247 @@
-
 {% extends 'base.html.twig' %}
 {% block title  dechet.Designation %}
 
-{% block stylesheets %} 
- 
-{% endblock %} 
+{% block stylesheets %}{% endblock %}
 
 {% block fils %}
-<div class="jumbotron">
-    <div class="container-fluid">
-    
-            {% for message in app.flashes('success') %}
-            <div class="alert alert-success" role="alert">
-                <strong>{{ message }}</strong>
-            </div>
-            {% endfor %}
+	<div class="jumbotron">
+		<div class="container-fluid">
 
-            
-    
-                <script>
-                $(".alert").alert();
-                </script>
-                <div class="row">
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success" role="alert">
+					<strong>{{ message }}</strong>
+				</div>
+			{% endfor %}
 
 
-                                        <div class="col-md-3 pt-3 pl-1 col-12">  
-                                            {% if dechet.filename %}
-                                            <img src="{{ vich_uploader_asset(dechet,'imageFile') | imagine_filter('medium') }}" alt="card-img-top" style="width:100%; height:auto;" >
-                                            {% else %}
-                                            <img src="{{ '/images/dechets/empty.jpg' | imagine_filter('medium') }}" alt="card-img-top" style="width:100%; height:auto;" >
-                                            {%  endif %} 
-                                        </div>
+			<script>
+				$(".alert").alert();
+			</script>
+			<div class="row">
+			{% set var = dechet.QuantiteStock|length %}
+
+				<div class="col-md-3 pt-3 pl-1 col-sm-12">
+					{% if dechet.filename %}
+						<img src="{{ vich_uploader_asset(dechet,'imageFile') | imagine_filter('medium') }}" alt="card-img-top" style="width:100%; height:auto;">
+					{% else %}
+						<img src="{{ '/images/dechets/empty.jpg' | imagine_filter('medium') }}" alt="card-img-top" style="width:100%; height:auto;">
+					{%  endif %}
+				</div>
 
 
-                                          <div class="col-md-6  col-12 pr-5 pt-2">
-                                                    <h4 class="font-weight-bold text-dark">
-                                                   
-                                                       {{ dechet.Designation  }}, c'est une dechet d'origine  {% if dechet.Origine == 0 %}  Menagers  {% else %} Activite economiques {% endif %} et naturellement {% if dechet.Nature == 0 %} Dangereux {% elseif dechet.Nature == 1 %}  Non Dangereux 
-                                                                     {% elseif dechet.Nature == 2 %} Inerte  {% elseif dechet.Nature == 3 %}  Ultime {% else %}  Biodechet {% endif %} ({{ dechet.QuantiteStock }} TO disponible)
-                                                       
-                                                    </h4><hr>
-                                                    <p>Prix : <span class="font-weight-bold text-warning pb-1" style="font-size:25px;">  {{ dechet.Prix | number_format(0,'',' ')}} $ </span><br><span class="font-weight-bold text-dark" style="font-size:17px;padding:0 0 0 40px;"> tous les prix incluent la TVA</span></span></p>
-                                                    
-                                                    <p class="text-bold text-capitalize">
-                                                       {{ dechet.Description | nl2br }}
-                                                    </p>
-                                                   
-                                            </div>
+				<div class="col-md-6  col-sm-12 pr-5 pt-2">
+					<h4 class="font-weight-bold text-dark text-lowercase">
+
+						{{ dechet.Designation  }}, c'est un dechet d'origine
+						{% if dechet.Origine == 0 %}
+							Menagers
+						{% else %}
+							Activite economiques
+						{% endif %}
+						et naturellement
+						{% if dechet.Nature == 0 %}
+							Dangereux
+						{% elseif dechet.Nature == 1 %}
+							Non Dangereux
+						{% elseif dechet.Nature == 2 %}
+							Inerte
+						{% elseif dechet.Nature == 3 %}
+							Ultime
+						{% else %}
+							Biodechet
+						{% endif %}
+						({{ dechet.QuantiteStock }}
+						KG disponible)
+
+					</h4><hr>
+					<p>Prix :
+						<span class="font-weight-bold  pb-1" style="font-size:25px; color: #A3D044">
+							{{ dechet.Prix | number_format(0,'',' ')}}
+							$
+						</span><br><span class="font-weight-bold text-dark" style="font-size:17px;padding:0 0 0 40px;">
+							tous les prix incluent le TVA</span>
+					</p>
+				</span>
+			</p>
+
+			<h5 class="pt-5 text-lowercase " >
+				{{ dechet.Description  | nl2br }}
+			</h5>
 
 
+		</div>
 
-                                        <div class="col-md-3 col-12 pr-5">
-                                                                    <div class="col  mb-4 d-flex justify-content-center" >
-                                                                        <a name="" id=""  href="#"  style="font-size:25px; padding: 0 20px 0 0 ;">Partage</a>
-                                                                        <i class="fa fa-facebook-square fa-2x" style="color:#0026FF; padding:0 15px 0 0;"></i>
-                                                                        <i class="fa fa-envelope-o fa-2x" style="color:#000; padding:0 15px 0 0;" ></i>
-                                                                        <i class="fa fa-twitter fa-2x" style="color:#3855FF; padding:0 15px 0 0;"></i>
-                                                                        <i class="fa fa-pinterest fa-2x" style="color:#FF0000; padding:0 15px 0 0;"></i>
-                                                                    </div>
-                                                            <div class="card border-dark bg-transparent" >
-                                                                <div class="card-body ">
-                                                                            <h4 class="card-title" > {{dechet.Designation | upper }}</h4>
-                                                                            <h5 class="card-subtitle text-success mb-1"> Disponible maintenant. </h5>
-                                                                            <h6 class="card-subtitle text-muted mb-2"> Quantite Stocke : <span id="qttStock"> {{dechet.QuantiteStock }} </span> To </h6>
-                                                                            <h6 class="card-subtitle text-muted mb-2"> Vendu par <span class="font-weight-bold"> site officiel OVD Djibouti  </span> </h6>
-                                                                    
-                                                                                <div class="form-group">
-                                                                                <form method="post" action="{{ path('panier_ajouter', {'id': dechet.id} ) }}">
-                                                                                    <input type="text"
-                                                                                    class="form-control" name="qttu" id="ia" aria-describedby="helpId" placeholder="quantite">
-                                                                                    
-                                                                                    <small id="helpId" class="form-text text-muted">quantite voudrait commande</small>
-                                                                                </div>
-                                                                                    <div class="text-primary card-text" style="font-size:3rem; font-weight:bold"> {{ dechet.Prix | number_format(0,'',' ') }} $ </div>
-                                                                            <button name="submit"  class="btn btn-primary btn-lg btn-block" role="button" id="js-ajouter"><i class="fa fa-camera-cart mr-1"></i> Ajoute au panier </button >
-                                                                            </form>
-                                                                            <hr><hr>
-                                                                           
-                                                                </div>
-                                                            </div>
-                                                            
-                      
-                                        </div>
-                 </div>
-    </div>
+
+		<div class="col-md-3 col-12 pr-5">
+			<div class="col  mb-4 d-flex justify-content-center">
+				<a name="" id="" href="#" style="font-size:25px; padding: 0 20px 0 0 ;">Partager</a>
+				<a href="#"><i class="fa fa-facebook-square fa-2x" style="color:#0026FF; padding:0 15px 0 0;"></i></a>
+				<a href="#"><i class="fa fa-envelope-o fa-2x" style="color:#000; padding:0 15px 0 0;"></i></a>
+				<a href="#"><i class="fa fa-twitter fa-2x" style="color:#3855FF; padding:0 15px 0 0;"></i></a>
+				<a href="#"><i class="fa fa-pinterest fa-2x" style="color:#FF0000; padding:0 15px 0 0;"></i></a>
+				
+			</div>
+			<div class="card border-dark bg-transparent">
+				<div class="card-body ">
+					<h4 class="card-title" style="font-weight:bold;">
+						{{dechet.Designation | upper }}</h4>
+					<p class="card-subtitle text-success mb-1">
+						Disponible maintenant.
+					</p>
+					<p class="card-subtitle text-muted mb-2">
+						Quantite Stocke :
+						{% if var>3 and var<6 %}
+						<span id="qttStock">
+							{{dechet.QuantiteStock|slice(0,3) }}
+						</span>
+						
+						 <span id="unite">  M </span>
+						{% endif %}
+
+
+						{% if var<=3 %}
+						<span id="qttStock">
+							{{dechet.QuantiteStock|slice(0,3) }}
+						</span>
+						<span id="unite"> K</span>
+						 
+						{% endif %}
+
+						{% if var>=6 %}
+						<span id="qttStock">
+							{{dechet.QuantiteStock|slice(0,3) }}
+						</span>
+						
+						  <span id="unite"> T</span>
+						{% endif %}
+
+					</p>
+					<p class="card-subtitle text-muted mb-2">
+						Vendu par
+						<span class="font-weight-bold">
+							site officiel OVD Djibouti
+						</span>
+					</p>
+
+					<div class="form-group">
+						<form action="{{ path('panier_ajouter', {'id': dechet.id} ) }}" method="post" id="form_id">
+
+							<input type="hidden" name="dechetid" value="{{dechet.id}}">
+							
+							<input type="hidden" id="qttuet" name="qttuet" value="{{dechet.QuantiteStock }}">
+							
+							<input type="number" class="form-control" name="qttu" id="ia" aria-describedby="helpId" placeholder="quantite" autofocus>
+							<small id="helpId" class="form-text text-muted">quantite en kg</small>
+							<div class="text-primary card-text" style="font-size:3rem; font-weight:bold; padding-bottom: 15px; padding-top:5px;">
+								{{ dechet.Prix | number_format(0,'',' ') }}
+								$
+							</div>
+							<button class="btn btn-primary btn-block btn-lg " type="submit" name="Submit" id="js-ajouter">
+								<i class="fas fa-shopping-cart" style="color: #a9f506 ; padding-right:7px"></i>
+
+								Ajouter au panier
+
+							</button>
+							<hr style="background-color:#000"><hr style="background-color:#000">
+							<button class="btn btn-primary btn-block btn-lg" id="js-acheter" >Acheter <i class="fa fa-angle-right" style="color: #a9f506 ; padding-left:5px"></i></button>
+						</form>
+					</div>
+
+
+					
+
+				</div>
+			</div>
+		</div>
 </div>
-
-
-
-
-<div class="container-fluid  pl-5 pr-5">
-     
-   
-    {% if dechetSimulaires|length != 0 %}
-        <h1 class="text-primary">Produit Sponsorises similaires a cet article</h1>
-         <div class="row mt-4">
-            <div class="owl-carousel owl-theme px-5 pr-5">
-               {% for dechetSimulaire in dechetSimulaires %}
-                     <div class="item"> 
-                                                    {% if dechetSimulaire.filename %}
-                                                      <img src="{{ vich_uploader_asset(dechetSimulaire,'imageFile') | imagine_filter('slider') }}" alt="card-img-top" style="width: 100%; height: auto;">
-                                                     {% else %}
-                                                        <img src="{{ '/images/dechets/empty.jpg' | imagine_filter('slider') }}" alt="card-img-top" style="height: 220px;" >
-                                                      {%  endif %} 
-
-                                                      <div class="caption">
-                                                        <p class="font-weight-bold  text-primary">  {{ dechetSimulaire.Designation }}  <br>
-                                                          <span class="badge text-dark" style="font-size: 15px">Quantite : </span>
-                                                            {{dechetSimulaire.QuantiteStock}} TO <br>
-                                                        
-                                                         <span class="badge text-dark" style="font-size: 15px">Prix: </span>
-                                                              <span class="text-primary  font-weight-bold">{{dechetSimulaire.Prix | number_format(0,'',' ')}} $</span>
-                                                        </p>
-                                                          
-                                                        
-                                                        
-                                                     </div>
-                     </div>
-                     
-
-                {% endfor %}
-                
-            </div>
-        </div>
-    {% endif %}
-    
 </div>
-
-
-
-
-<div class="container-fluid  pl-5 pr-5">
-     
-   
-    {% if dechetSimulaires|length != 0 %}
-        <h1 class="text-primary">Produit Sponsorises similaires a cet article</h1>
-         <div class="row mt-4">
-            <div class="owl-carousel owl-theme px-5 pr-5">
-               {% for dechetSimulaire in dechetSimulaires %}
-                     <div class="item"> 
-                                                    {% if dechetSimulaire.filename %}
-                                                      <img src="{{ vich_uploader_asset(dechetSimulaire,'imageFile') | imagine_filter('slider') }}" alt="card-img-top" style="width: 100%; height: auto;">
-                                                     {% else %}
-                                                        <img src="{{ '/images/dechets/empty.jpg' | imagine_filter('slider') }}" alt="card-img-top" style="height: 220px;" >
-                                                      {%  endif %} 
-
-                                                      <div class="caption">
-                                                        <p class="font-weight-bold  text-primary">  {{ dechetSimulaire.Designation }}  <br>
-                                                          <span class="badge text-dark" style="font-size: 15px">Quantite : </span>
-                                                            {{dechetSimulaire.QuantiteStock}} TO <br>
-                                                        
-                                                         <span class="badge text-dark" style="font-size: 15px">Prix: </span>
-                                                              <span class="text-primary  font-weight-bold">{{dechetSimulaire.Prix | number_format(0,'',' ')}} $</span>
-                                                        </p>
-                                                          
-                                                        
-                                                        
-                                                     </div>
-                     </div>
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
-    
 </div>
+		<div class="container-fluid  pl-5 pr-5">
+			{% if dechetSimulaires|length != 0 %}
+				<h1 class="text-primary">DECHETS DE MEME CATEGORIE :  {{ dechet.Categorie.NomCategorie}}</h1>
+				<div class="row mt-4">
+					<div class="owl-carousel owl-theme px-5 pr-5">
+						{% for dechetSimulaire in dechetSimulaires %}
+							<div class="item">
+								{% if dechetSimulaire.filename %}
+									<img src="{{ vich_uploader_asset(dechetSimulaire,'imageFile') | imagine_filter('slider') }}" alt="card-img-top" style="width: 100%; height: auto;">
+								{% else %}
+									<img src="{{ '/images/dechets/empty.jpg' | imagine_filter('slider') }}" alt="card-img-top" style="height: 220px;">
+								{%  endif %}
+
+								<div class="caption">
+									<p class="font-weight-bold  text-primary">
+										<a href="{{ path('dechet.show',{slug: dechetSimulaire.slug , id: dechetSimulaire.id}) }}" class="card-link stretched-link">
+											{{ dechetSimulaire.Designation}}
+										</a>
+										<br>
+										<span class="badge text-dark" style="font-size: 15px">Quantite :
+										</span>
+										{{dechetSimulaire.QuantiteStock}}
+										Kg
+										<br>
+
+										<span class="badge text-dark" style="font-size: 15px">Prix:
+										</span>
+										<span class="text-primary  font-weight-bold">{{dechetSimulaire.Prix | number_format(0,'',' ')}}
+											$</span>
+									</p>
 
 
-{% endblock %}
-{% block footer %}
-    {{ include ('home/_footer.html.twig') }}
-{% endblock %}
-
-{% block javascripts %}
-
-	 <script src="{{ asset('script.js') }}"></script> 
-     <script src="{{ asset('boots/js/quantiteInputDs.js') }}"></script>
-     
-
-{% endblock %}
+								</div>
+							</div>
 
 
+						{% endfor %}
+
+					</div>
+				</div>
+			{% endif %}
+		</div>
+		<div class="container-fluid  pl-5 pr-5">
+			{% if dechetSimulaires|length != 0 %}
+				<h1 class="text-primary">Produite les plus vendu et les plus demande </h1>
+				<div class="row mt-4">
+					<div class="owl-carousel owl-theme px-5 pr-5">
+						{% for dechetSimulaire in dechetSimulaires %}
+							<div class="item">
+								{% if dechetSimulaire.filename %}
+									<img src="{{ vich_uploader_asset(dechetSimulaire,'imageFile') | imagine_filter('slider') }}" alt="card-img-top" style="width: 100%; height: auto;">
+								{% else %}
+									<img src="{{ '/images/dechets/empty.jpg' | imagine_filter('slider') }}" alt="card-img-top" style="height: 220px;">
+								{%  endif %}
+
+								<div class="caption">
+									<p class="font-weight-bold  text-primary">
+										{{ dechetSimulaire.Designation }}
+										<br>
+										<span class="badge text-dark" style="font-size: 15px">Quantite :
+										</span>
+										{{dechetSimulaire.QuantiteStock}}
+										Kg
+										<br>
+
+										<span class="badge text-dark" style="font-size: 15px">Prix:
+										</span>
+										<span class="text-primary  font-weight-bold">{{dechetSimulaire.Prix | number_format(0,'',' ')}}
+											$</span>
+									</p>
 
 
-
-
-
-
-
- 
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	{% endblock %}
+	{% block footer %}
+		{{ include ('home/_footer.html.twig') }}
+	{% endblock %}
+	{% block javascripts %}
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/additional-methods.min.js"></script>
+		<script src="{{ asset('script.js') }}"></script>
+		<script src="{{ asset('scripts/JSFORMPNAC/quantiteInputDs.js') }}"></script>
+	{% endblock %}

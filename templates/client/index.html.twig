@@ -2,61 +2,161 @@
 {% block title %}Votre compte
 {% endblock %}
 {% block stylesheets %}{% endblock %}
+{% block css %}
+
+.card-box {
+    position: relative;
+    color: #fff;
+    padding: 10px 10px 40px;
+    margin: 10px 0px;
+}
+.card-box:hover {
+    text-decoration: none;
+    color: #f1f1f1;
+}
+.card-box:hover .icon img {
+    font-size: 100px;
+    transition: 1s;
+    -webkit-transition: 1s;
+}
+.card-box .inner {
+    padding: 5px 10px 0 10px;
+}
+.card-box h3 {
+    font-size: 27px;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    white-space: nowrap;
+    padding: 0;
+    text-align: left;
+}
+.card-box p {
+    font-size: 15px;
+}
+.card-box .icon {
+    position: absolute;
+    top: auto;
+    bottom: 5px;
+    right: 5px;
+    z-index: 0;
+    font-size: 72px;
+    color: rgba(0, 0, 0, 0.15);
+}
+.card-box .card-box-footer {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    text-align: center;
+    padding: 3px 0;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-decoration: none;
+}
+.card-box:hover .card-box-footer {
+    background: rgba(0, 0, 0, 0.3);
+}
+.bg-blue {
+    background-color: #00c0ef !important;
+}
+.bg-green {
+    background-color: #00a65a !important;
+}
+.bg-orange {
+    background-color: #f39c12 !important;
+}
+.bg-red {
+    background-color: #d9534f !important;
+}
+
+{% endblock %}
 {% block fils %}
-	<div class="container">
-		<h3>
-			Votre compte
-		</h3>
-		<div class="row flex text-small mx-auto mt-auto">
+	
 
+  <div class="bg-light pb-2 pt-2">
+				<h1 class="text-center" style="font-weight:bold; padding-top:5px">Votre compte</h1>
+	    </div>
+  <div class="container">
+       
+	     <div class="row flex text-small mx-auto " >
+            <div class="col-4 ">
+                <div class="card-box bg-orange h-100">
+                    <div class="inner">
+                         <a href="{{path('app_commander_mescommander')}}" class="card-link stretched-link">
+                        <h5 class="card-title text-top">Vos commandes</h5>
+                        </a>
+                        <p class="card-text">Suivre,retourner ou acheter à nouveau.</p>
+                    </div>
+                    <div class="icon">
+                        
+                        <img alt="Vos commandes" aria-hidden="true" src="{{asset('images/icons/Box._CB485927607_.png') | imagine_filter ( 'compte' )}}" class="">
+                    </div>
+                    <a href="#" class="card-box-footer">Voir Plus <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
 
-			<div class="col-4">
-				<div class="card bg-light mb-4">
-					<div class="card-body">
-						<div class="row flex-wrap">
-
-							<img alt="Vos commandes" src="{{asset('images/icons/Box._CB485927607_.png') | imagine_filter ( 'compte' )}}" class="">
-							<h5 class="card-title text-right text-top">Vos commandes</h5>
-						</div>
-						<p class="card-text text-right text-top">Suivre,retourner ou acheter à nouveau.</p>
-
-
-					</div>
-				</div>
-			</div>
-
-			<div class="col-4">
-				<div class="card bg-light mb-4">
-					<div class="card-body">
-						<a href="{{path('app_user_parametresecurite')}}" class="card-link stretched-link">
+            <div class="col-4  ">
+                <div class="card-box  h-100" style="background-color:#a9f506;">
+                    <div class="inner">
+                        <a href="{{path('app_user_parametresecurite')}}" class="card-link stretched-link">
 
 							<h5 class="card-title">Connexion et paramétres de sécurité</h5>
 						</a>
-						<p class="card-text">Modifier le l'identifiant,le nom et le numero de telephone mobile.</p>
-						<img alt="Connexion et paramètres de sécurité" src="{{asset('images/icons/sign-in-lock._CB485931462_.png')}}" class="card-img-left">
-					</div>
-				</div>
-			</div>
-			<div class="col-4">
-				<div class="card bg-light mb-4">
-					<div class="card-body">
-						<a href="{{path('app_adresse_new')}}" class="card-link stretched-link">
+                        <p class="card-text">Modifier le l'identifiant,le nom et le numero de telephone mobile.</p>
+                    </div>
+                    <div class="icon">
+                        
+                        <img alt="Connexion et paramètres de sécurité" aria-hidden="true" src="{{asset('images/icons/sign-in-lock._CB485931462_.png')}}" class="card-img-left">
+                    </div>
+                    <a href="{{path('app_user_parametresecurite')}}" class="card-box-footer">Voir Plus <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-4  ">
+                <div class="card-box bg-blue h-100">
+                    <div class="inner">
+                        <a href="{{path('app_adresse_new')}}" class="card-link stretched-link">
 							<h5 class="card-title">Adresse</h5>
 						</a>
-						<p class="card-text">Modifier les adresses et les préférences de livraison des commandes</p>
-						<img alt="Adresses" src="{{asset('images/icons/address-map-pin._CB485934205_.png')}}" class="card-img-left">
-					</div>
-				</div>
-			</div>
-			<div class="col-4">
-				<div class="card bg-light mb-4">
-					<div class="card-body">
-						<h5 class="card-title">Centre de messagerie</h5>
+                        <p class="card-text">Modifier les adresses et les préférences de livraison des commandes</p>
+                    </div>
+                    <div class="icon">
+                        <img alt="Adresses" aria-hidden="true"  src="{{asset('images/icons/address-map-pin._CB485934205_.png')}}" class="card-img-left">
+                    </div>
+                    <a href="{{path('app_adresse_new')}}" class="card-box-footer">Voir Plus <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-4   ">
+                <div class="card-box bg-red h-100 mt-5">
+                    <div class="inner">
+                    <a href="{{path('contact')}}" class="card-link stretched-link">
+                        <h5 class="card-title">Centre de messagerie</h5>
+                     </a>   
 						<p class="card-text">Afficher vos messages OVD</p>
-						<img alt="Centre de messagerie" src="{{asset('images/icons/message_centre._CB424635835_.png')}}" class="card-img-left">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                    </div>
+                    <div class="icon">
+                        <img alt="Centre de messagerie" aria-hidden="true" src="{{asset('images/icons/message_centre._CB424635835_.png')}}" class="card-img-left">
+                    </div>
+                    <a href="#" class="card-box-footer">Voir Plus <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-4  ">
+                <div class="card-box bg-green h-100 mt-5">
+                    <div class="inner">
+                        <a href="{{path('app_user_reglement')}}" class="card-link stretched-link">
+
+							<h5 class="card-title">Vos paiements</h5>
+						</a>
+
+						<p class="card-text">Gérer les modes de paiement et les paramètres, afficher les soldes et les offres</p>
+
+                    </div>
+                    <div class="icon">
+                        <img alt="Vos paiements" aria-hidden="true" src="https://images-na.ssl-images-amazon.com/images/G/08/x-locale/cs/ya/images/Payments._CB485926305_.png">
+                    </div>
+                    <a href="{{path('app_user_reglement')}}" class="card-box-footer">Voir Plus <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+  </div>
 {% endblock %}

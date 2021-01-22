@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Administrateur{% endblock %}
+
+{% block fils %}
+
+{% for user in users %}
+    <p> {{user.FisrtName}} </p>
+{% endfor %}
+
+{% endblock %}
+{% block javascripts %}{% endblock %}

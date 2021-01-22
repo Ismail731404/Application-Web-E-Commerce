@@ -36,4 +36,7 @@ services:
         
     App\EventListener\RequestListener:
         tags:
-            - { name: kernel.event_listener, event: kernel.request }    
+            - { name: kernel.event_listener, event: kernel.request }  
+    App\EventListener\LoginListener:
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login }           

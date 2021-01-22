@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+{% block title 'Gerer les employers' %}
+
+{% block stylesheets %}{% endblock %}
+{% block  fils %}
+
+	<div class="container-fluid "  style="margin-bottom:200px; margin-top:60px">
+
+
+		<div class="row">
+			<div class="col-md-4 mt-5">
+				{% for message in app.flashes('success') %}
+					<div class="alert alert-success" role="alert">
+						<strong>{{ message }}</strong>
+					</div>
+				{% endfor %}
+
+				<div class="text-right mt-4">
+					<a class="btn btn-primary btn-lg btn-block" id="contactButton" {% if registrationForm.vars.submitted %} style="display:none;" {% endif %}>
+						Creer un employer</a>
+				</div>
+
+				<div id="contactForm" class="mt-4" {% if not registrationForm.vars.submitted %} style="display:none;" {% endif %}>
+                        <h2>
+                            Cree un nouveau compte 
+                        </h2>
+                    {{ form_start(registrationForm,{'attr':{'id' : 'form_registeur'}}) }}
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_row(registrationForm.foo.FisrtName)}}</div>
+                            <div class="col-md-4">
+                                {{ form_row(registrationForm.foo.LastName)}}</div>
+                            <div class="col-md-4">
+                            {{ form_row(registrationForm.foo.indicateur)}}</div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                {{ form_row(registrationForm.foo.phone)}}</div>
+                            <div class="col-md-6">
+                                {{ form_row(registrationForm.foo.email)}}</div>
+                
+
+                
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                            
+
+                                        {{ form_row(registrationForm.foo.password)}}
+                                        <small id="passwordHelpBlock" class="form-text text-muted">
+                                            Votre mot de passe doit comporter au moins 8 caractères, contenir au moins un chiffres, une lettre en masjucule et minuscule, et ne doit contenir que les symbole [-_.] .
+                                        </small>
+
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_row(registrationForm.foo.confirmepassword)}}</div>
+                            <div class="col-md-4">
+                                {{ form_row(registrationForm.Departement)}}</div>
+                            <div class="col-md-4 ">
+                                {{ form_row(registrationForm.Bureau)}}</div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                {{ form_row(registrationForm.Fonction)}}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(registrationForm.NumeroBureau)}}</div>
+
+                        </div>
+                        
+                            <button class="btn btn-primary">
+                                Ajouter
+                            </button>
+                            <a class="btn btn-primary float-right" href="#" id="dechetannule2" role="button">
+                                Annuler</a>
+                    {{ form_end(registrationForm,{'attr':{'id' : 'form_registeur'}}) }}
+				</div>
+
+
+			</div>
+
+			<div class="col-md-8">
+
+
+				<h2>Gere le employers</h2>
+				<div class="row flex">
+
+					<table class="table table-striped">
+						<thead>
+							<tr>
+                                <th>Identifiant utilisateur</th>
+								<th>Nom utilisateur </th>
+								<th>Action</th>
+
+							</tr>
+						</thead>
+						<tbody>
+
+							{% for user in users %}
+                                 <tr>
+                                        <td>{{ user.Id }}</td>
+                                        <td scope="row">{{ user.FisrtName }} {{ user.LastName }} </td>
+                                        <td>
+
+                                            {# <a   class="btn btn-secondary" href="{{ path('administration_categorie_user_edite',{id: user.id})}}" role="button">Editer</a> #}
+
+                                            <div id="heading{{user.id}}" style="display:inline;">
+                                                
+                                                <a class="btn btn-primary" href="{{ path('adminindex_editer',{id: user.id})}}" role="button">Editer</a>
+                                            </div>
+
+                                            <form method="post" action="{{path('adminindex_delete',{id: user.id })}}" style="display:inline-block" onsubmit="return confirm('Etes-vous vraiment sur ?')">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete'~ user.id)}}">
+                                                <button class="btn btn-danger">Supprime</button>
+                                            </form>
+                                        
+                                            <form method="post" action="{{path('adminindex_bloquer',{id: user.id })}}" style="display:inline-block" onsubmit="return confirm('Etes-vous vraiment sur ?')">
+                                                <input type="hidden" name="_method" value="BLOQUER">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('bloquer'~ user.id)}}">
+                                               
+                                                <button class="btn btn-warning"> {% if user.Lockaccount %}Debloquer{% else %}Bloquer{% endif %}</button>
+                                                 
+                                            </form>                            
+
+                                        </td>
+
+                                    
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+					</table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/additional-methods.min.js"></script>
+	<script src="{{ asset('scripts/JSFORMPNAC/registerEmployer-valide.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock %}

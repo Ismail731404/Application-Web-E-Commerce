@@ -1,0 +1,72 @@
+{% extends 'base.html.twig'   %}
+
+{% block title  'Employer' %}
+
+
+{% block fils %}
+	<div class="container mt-4">
+		<h2>
+			Modification de l'utilisateur</h2>
+		{{ form_start(form,{'attr':{'id' : 'form_registeur'}}) }}
+
+		<div class="row">
+			<div class="col-md-3">
+				{{ form_row(form.foo.FisrtName)}}</div>
+			<div class="col-md-3">
+				{{ form_row(form.foo.LastName)}}</div>
+			<div class="col-md-3 " style="margin-top:40px;">
+				{{ form_row(form.foo.indicateur)}}</div>
+			<div class="col-md-3">
+				{{ form_row(form.foo.phone)}}</div>
+		</div>
+		<div class="row">
+
+			<div class="col-md-3">
+				{{ form_row(form.foo.email)}}</div>
+			<div class="col-md-3">
+				{{ form_row(form.foo.password,{'attr':{'autocomplete' : true}})}}
+
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                                            Votre mot de passe doit comporter au moins 8 caractères, contenir au moins un chiffres, une lettre en masjucule et minuscule, et ne doit contenir que les symbole [-_.] .
+                                        </small>    
+                
+            </div>
+			<div class="col-md-3">
+				{{ form_row(form.foo.confirmepassword,{'attr':{'autocomplete' : true}})}}</div>
+			<div class="col-md-3">
+				{{ form_row(form.Departement)}}
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				{{ form_row(form.Bureau)}}</div>
+			<div class="col-md-4 ">
+				{{ form_row(form.Fonction)}}</div>
+			<div class="col-md-4 ">
+				{{ form_row(form.NumeroBureau)}}</div>
+		</div>
+		
+		<button class="btn btn-primary">
+			Editer
+		</button>
+        <a  id="" class="btn btn-primary" href="{{path('adminindex')}}" role="button">Annuler</a>
+		{{ form_end(form,{'attr':{'id' : 'form_registeur'}}) }}
+	</div>
+{% endblock %}
+{% block javascripts %}
+
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/additional-methods.min.js"></script>
+	{# <script src="{{ asset('register-validedechet.js') }}"></script> #}
+
+
+	<script>
+		$('.custom-file-input').on('change', function (event) {
+var inputFile = event.currentTarget;
+$(inputFile).parent().find('.custom-file-label').html(inputFile.files[0].name);
+});
+	</script>
+{% endblock %}

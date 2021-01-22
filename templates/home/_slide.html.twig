@@ -1,14 +1,14 @@
 
       {% for publicite in publicites %}
-        <div class="slide  {% if loop.first %} active {% endif %} " style="background-image: url('{{ vich_uploader_asset(publicite,'imageFile')  | imagine_filter('publicite') }}')">
+        <div class="slide  {% if loop.first %} active {% endif %} " style="background-image: url('/images/dechets/{{publicite.filename}}')">
             <div class="container">
                 <div class="caption">
                     <h1>{{ publicite.Nompublicite }}</h1>
                     {% if publicite.Description %}
-                       <p>{{ publicite.Description }}</p>
+                       <p style="padding-rigth:15px; font-family: 'Roboto' ; font-weight: bold;  font-size:16px ">{{ publicite.Description }}</p>
                     {%  endif %} 
                     {% if publicite.Url %}
-                       <a href="{{ publicite.Url }}">Shop Now</a>
+                       <a href="{{ publicite.Url }}">Voir plus</a>
                     {%  endif %} 
                     
                 </div>
@@ -16,6 +16,8 @@
         </div>
          
       {% endfor %}
-        
-     
-  
+
+
+      {# {{ asset('/images/dechets/publicite.filename')  | imagine_filter('publicite') }} #}
+
+      {# /images/dechets/{{publicite.filename}} #}

@@ -9,13 +9,17 @@
 
 // import 'path-to-bundles/fpjsformvalidator/js/FpJsFormValidator';
 // import 'path-to-bundles/fpjsformvalidator/js/jquery.fpjsformvalidator';
-import "js/jquery.fpjsformvalidator.js";
+
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.green.css";
 import "owl.carousel";
 import "../css/app.scss";
+import "../css/style.css";
+import "../css/styles/layout.css"
 
-import "../css/footer.css";
+
+
+
 
 import "../css/Loading.css";
 import noUiSlider from "nouislider";
@@ -376,5 +380,31 @@ $("#form_registeur").validate({
     },
   },
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/****  header */
+
+
 
 console.log("Hello Webpack Encore! Edit me in assets/js/app.js");

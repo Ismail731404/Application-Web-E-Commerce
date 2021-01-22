@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block title %}Cette page n'existe pas
+{% endblock %}
+
+{% block fils %}
+	<div class="text-center mx-auto mb-auto mt-auto">
+
+		<h1 class="alert alert-danger">Oops! Une erreur s'est produite</h1>
+
+		<h2>
+			Le serveur a renvoyé un "404 not found".
+		</h2>
+
+
+		<h6>Cette page n'existe pas</h6>
+
+
+		<p class="lead">
+			La page que vous recherchez semble introuvable.
+									Sans détour, il n'est point de voyage... Retournez à la page d'accueil.
+		</p>
+
+		<p>
+			<a class="btn btn-primary text-uppercase" href="{{ path('home') }}">revenir à l'acceuil</a>.</p>
+
+	</div>
+
+{% endblock %}

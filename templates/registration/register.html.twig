@@ -4,7 +4,7 @@
 {% block stylesheets %}{% endblock %}
 
 {% block fils %}
-<div class="card text-small mx-auto mb-auto mt-auto">
+<div class="card text-small mx-auto mb-auto mt-5">
 	<div class="card-body">
 		<div class="card-header">
 			<h3 class="h3 mb-3 font-weight-normal card-title">
@@ -25,11 +25,11 @@
 
 		{{ form_row(registrationForm.foo.email)}}
 
-		{{ form_row(registrationForm.foo.password)}}
+		{{ form_row(registrationForm.foo.password,{'attr':{'autocomplete' : true}})}}
 		<small id="passwordHelpBlock" class="form-text text-muted">
 			Votre mot de passe doit comporter au moins 8 caractères, contenir au moins un chiffres, une lettre en masjucule et minuscule, et peux contenir des symboles.
 		</small>
-		{{ form_row(registrationForm.foo.confirmepassword)}}
+		{{ form_row(registrationForm.foo.confirmepassword,{'attr':{'autocomplete' : true}})}}
 
 		{{ form_row(registrationForm.file)}}
 
@@ -38,21 +38,18 @@
 
 		{% endset %}
 		{% set general_terms_and_conditions %}{{ 'J\'ai lu et j\'accepte les  %general_terms_and_conditions% de l\'entreprise.'|trans({ '%general_terms_and_conditions%': terms_link })|raw }}{% endset %}
-
-
 			<div>
 				{{ form_errors(registrationForm.terms) }}
 
 				{{ form_widget(registrationForm.terms) }}
 
-				<label for="{{ registrationForm.terms.vars.id }}">{{ general_terms_and_conditions|raw }}</label>
+				<label for="{{ registrationForm.terms.vars.id }}" style="padding-left:18px;">{{ general_terms_and_conditions|raw }}</label>
 
 			</div>
 
-
 			<button type="submit" class="btn btn-primary card-link">Envoyer</button><br/>
 
-<div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}" data-size="normal"></div>
+			<div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}" data-size="normal"></div>
 
 			{{ form_end(registrationForm,{'attr':{'id' : 'form_registeur'}}) }}
 			<br>
@@ -65,7 +62,6 @@
 
 
 {% block javascripts %}
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js"></script>
 	<script src='https://www.google.com/recaptcha/api.js' async defer></script>
 <script>
 	const forms = document.querySelectorAll('div.g-recaptcha');
@@ -82,9 +78,7 @@ alert('Veuillez vérifier le recaptcha');
 }, false)
 });
 </script>
-
-
 	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
 	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/additional-methods.min.js"></script>
-	<script src="{{ asset('js/register-valide.js') }}"></script>
+	<script src="{{ asset('scripts/JSFORMPNAC/register-valide.js') }}"></script>
 {% endblock %}

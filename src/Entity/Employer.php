@@ -15,6 +15,10 @@ use Doctrine\ORM\Mapping\Entity;
 class Employer extends User
 {
 
+    public function __construct()
+    {
+        parent::__construct();   
+    }
     /**
      * @ORM\Column(type="string", length=255)
      */

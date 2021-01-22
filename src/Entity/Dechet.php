@@ -17,24 +17,24 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Dechet
 {
-     const NATURE =[
-         0 =>'Dangereux',
-         1 => 'Non Dangereux',
-         2 => 'Inerte',
-         3 => 'Ultime',
-         4 => 'Biodechet'
-     ];
+    const NATURE = [
+        0 => 'Dangereux',
+        1 => 'Non Dangereux',
+        2 => 'Inerte',
+        3 => 'Ultime',
+        4 => 'Biodechet'
+    ];
 
-     const ORIGINE =[
-        0 =>'Menagers',
+    const ORIGINE = [
+        0 => 'Menagers',
         1 => 'Activite economiques'
     ];
-    
+
     public function __construct()
     {
-        $this->created_at=new \DateTime('now');
+        $this->created_at = new \DateTime('now');
     }
-      /**
+    /**
      * Undocumented variable
      *
      * @var string|null
@@ -45,7 +45,7 @@ class Dechet
      * @var File|null
      * @Vich\UploadableField(mapping="dechet_image", fileNameProperty="filename")
      * @Assert\Image(
-     *     mimeTypes = {"image/jpeg","image/jpg","image/jfif"},
+     *     mimeTypes = {"image/jpeg","image/jpg","image/jfif","image/gif"},
      *     mimeTypesMessage = "Just les extension .jpeg .png  et .jpg  sont valide "
      * )
      */
@@ -84,7 +84,7 @@ class Dechet
      */
     private $created_at;
 
-  
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -124,7 +124,7 @@ class Dechet
     /**
      * @ORM\Column(type="boolean")
      */
-    private $promo=false;
+    private $promo = false;
 
     public function getId(): ?int
     {
@@ -157,7 +157,7 @@ class Dechet
 
 
 
-   
+
 
     public function getQuantiteStock(): ?int
     {
@@ -195,9 +195,9 @@ class Dechet
         return $this;
     }
 
-   
 
-   
+
+
 
     public function getVille(): ?string
     {
@@ -270,40 +270,38 @@ class Dechet
 
         return $this;
     }
-    public function getFormatPrix() : ?string 
+    public function getFormatPrix(): ?string
     {
-        return \number_format($this->getPrix(),0,'',' ');
+        return \number_format($this->getPrix(), 0, '', ' ');
     }
-    public function getSlug():string
+    public function getSlug(): string
     {
-     return((new Slugify())->slugify($this->designation));
+        return ((new Slugify())->slugify($this->designation));
     }
 
 
-    public function setImageFile(?File $imageFile ): Dechet
+    public function setImageFile(?File $imageFile): Dechet
     {
-        $this->imageFile =$imageFile;
-        
-        if($this->imageFile instanceof UploadedFile)
-        $this->updated_at=new \DateTime('now');
+        $this->imageFile = $imageFile;
+
+        if ($this->imageFile instanceof UploadedFile)
+            $this->updated_at = new \DateTime('now');
         return $this;
-       
-        
     }
     /**
      * @return File|null
      */
     public function getImageFile(): ?File
     {
-      return $this->imageFile;
+        return $this->imageFile;
     }
     /**
      * @param string|null $filename
      * @return Dechet
      */
-    public function setFilename(?string $filename ): Dechet
+    public function setFilename(?string $filename): Dechet
     {
-        $this->filename =$filename;
+        $this->filename = $filename;
         return $this;
     }
     /**
@@ -311,7 +309,7 @@ class Dechet
      */
     public function getFilename(): ?string
     {
-      return $this->filename;
+        return $this->filename;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
@@ -337,7 +335,4 @@ class Dechet
 
         return $this;
     }
-
-
-    
 }

@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
+{% block css %}
+body {  background-image: url("{{ asset('/images/dechets/background.jpg') }}"); }
+
+{% endblock %}
+
 {% block title %}
 	Connexion
 {% endblock %}
 
 {% block fils %}
-	<div class="card text-small mx-sm-auto mt-sm-auto">
+	<div  id="back"  class="card text-small mx-sm-auto " style="margin-top:50px;">
 
 		<div class="card-body">
 
@@ -29,13 +34,13 @@
 				</div>
 				<div class="form-group">
 					<label for="inputEmail">Adresse électronique</label>
-					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Entrez votre e-mail" required autofocus>
+					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Entrez votre e-mail" required autofocus autocomplete>
 					<small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre.</small>
 				</div>
 				<div class="form-group">
 
 					<label for="inputPassword">Mot de passe</label>
-					<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+					<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required autocomplete>
 					<small id="passwordhelp" class="form-text text-muted">
 						<a href="{{path('app_forgotten_password')}}" class="text-small">(Mot de passe Oublie!)</a>
 					</small>
@@ -43,20 +48,20 @@
 				<input
 				type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 				{# <div class="checkbox mb-3">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<label>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<input type="checkbox" name="_remember_me">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																Remember me
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</label>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														</div> #}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<label>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<input type="checkbox" name="_remember_me">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																Remember me
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</label>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														</div> #}
 
-				<div class="text-center">
+				<div class="text-center mb-2">
 					<button class="btn btn-primary card-link " type="submit" id="btn-login">
 						Se connectez
 					</button>
 
 				</div>
 
-				<div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}" data-size="normal" data-bind="btn-login"></div>
+				<div class="g-recaptcha" style="padding-left:30px; margin-bottom:10px;" data-sitekey="{{ google_recaptcha_site_key }}" data-size="normal" data-bind="btn-login"></div>
 
 			</form>
 			<div class="card-footer text-muted text-center bg-white">
@@ -72,9 +77,6 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js"></script>
-
-
 	<script src='https://www.google.com/recaptcha/api.js' async defer></script>
 	<script>
 		const forms = document.querySelectorAll('div.g-recaptcha');

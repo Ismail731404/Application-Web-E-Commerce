@@ -14,9 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-// /**
-// //  * @IsGranted("ROLE_STOCK")
-//  */
+/**
+ * @IsGranted("ROLE_STOCK")
+ */
 class DechetsController extends AbstractController
 {
 
@@ -129,12 +129,8 @@ class DechetsController extends AbstractController
 
 
 
-
-
-
-
     /**
-     * @Route("administration/Categorie/Dechet/editer{id}", name="administration_categorie_dechet_delete",methods="delete")
+     * @Route("administration/Categorie/Dechet/delete{id}", name="administration_categorie_dechet_delete",methods="delete")
      * 
      */
 

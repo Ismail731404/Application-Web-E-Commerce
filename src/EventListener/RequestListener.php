@@ -52,12 +52,16 @@ class RequestListener
 
         if ($user instanceof Employer || $user instanceof Client) {
             $role = in_array('ROLE_UNACTIVATED', $user->getRoles());
-            // $role = $this->authorizationChecker->isGranted('ROLE_UNACTIVATED');
+            $role2 = in_array('ROLE_BLOQUE', $user->getRoles());
+            // Redirige vers soit le deconnecte activation force 
             if ($role && !$this->isAuthenticatedUser($currentRoute)) {
                 $event->setResponse(new RedirectResponse($this->router->generate('activationforce')));
             }
+            if ($role2 && !$this->isAuthenticatedUserB($currentRoute) ) {
+                $event->setResponse(new RedirectResponse($this->router->generate('bloquerforce')));
+            }
             //Rediger vers le home si deja active
-            if (!$role && $this->isConnectUser($currentRoute)) {
+            if (!$role && !$role2 && $this->isConnectUser($currentRoute)) {
                 $event->setResponse(new RedirectResponse($this->router->generate('home')));
             }
         }
@@ -71,11 +75,20 @@ class RequestListener
         );
     }
 
+    private function isAuthenticatedUserB($currentRoute)
+    {
+        return in_array(
+            $currentRoute,
+            ['app_logout', 'bloquerforce']
+        );
+    }
+    
+
     private function isConnectUser($currentRoute)
     {
         return in_array(
             $currentRoute,
-            ['app_forgotten_password', 'register', 'activationforce']
+            ['register', 'activationforce','activation','bloquerforce']
         );
     }
 }

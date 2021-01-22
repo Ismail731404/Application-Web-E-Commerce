@@ -1,0 +1,292 @@
+{% extends 'base.html.twig' %}
+{% block title %}Comfirme l'adresse de livraison
+{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block fils %}
+
+
+
+    <div class="container">
+	       <div class="card text-dark bg-light">
+    <div class="card-header bg-dark text-center text-light"><h4>Comfirmer la methode de paiement</h4></div>
+      <div class="card-body ">
+        <h5 class="card-title text-center">{{app.user.fisrtname}} {{app.user.lastname}}</h5>
+        <!--Starting list group here -->
+			
+			<p class="list-group-item d-flex justify-content-between align-items-center list-group-item-action list-group-item-info">
+			   <span>Pays :</span>
+			  {{address.Pays}}
+              <span class="badge badge-primary badge-pill" id="headingPays" style="display:inline;"> <a href="#" style="color:#FFF" data-toggle="collapse" data-target="#collapsePays" aria-expanded="false" aria-controls="collapsePays">Modifie</a></span>
+			  </p>
+			  
+				<div id="collapsePays" class="collapse" aria-labelledby="headingPays" data-parent="#accordionExample">
+					<form method="post" action="{{path('commnder')}}" id="form_Pays">
+
+						<input type="hidden" name="_method" value="Pays">
+						<input type="hidden" name="_token" value="{{ csrf_token('user'~ app.user.id)}}">
+
+						<div class="form-group">
+							<label for="Pays">Votre Pays
+							</label><br/>
+							<input type="text" name="Pays" value="{{address.Pays}}" class="form-control" id="Pays">
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary">Enregistre les modification</button>
+							<button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapsePays" aria-expanded="false" aria-controls="collapsePays">
+								Annuler
+							</button>
+						</div>
+					</form>
+				</div>
+
+
+
+
+				 <p  class="list-group-item d-flex justify-content-between align-items-center list-group-item-action list-group-item-danger">
+			   <span>Region :</span>
+			  {{address.Region}}
+              <span class="badge badge-primary badge-pill" id="headingRegion" style="display:inline;"> <a href="#" style="color:#FFF" data-toggle="collapse" data-target="#collapseRegion" aria-expanded="false" aria-controls="collapseRegion">Modifie</a></span>
+			  </p>
+			  
+
+					
+			 
+			 	<div id="collapseRegion" class="collapse" aria-labelledby="headingRegion" data-parent="#accordionExample">
+					<form method="post" action="{{path('commnder')}}" id="form_Region">
+
+						<input type="hidden" name="_method" value="Region">
+						<input type="hidden" name="_token" value="{{ csrf_token('user'~ app.user.id)}}">
+
+						<div class="form-group">
+							<label for="Region">Votre Region
+							</label><br/>
+							<input type="text" name="Region" value="{{address.Region}}" class="form-control" id="Region">
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary">Enregistre les modification</button>
+							<button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapseRegion" aria-expanded="false" aria-controls="collapseRegion">
+								Annuler
+							</button>
+						</div>
+					</form>
+				</div>
+			
+			
+			<div class="list-group">
+              <p  class="list-group-item d-flex justify-content-between align-items-center list-group-item-action list-group-item-primary">
+			   <span>Ville :</span>
+			   {{address.Ville}}
+              <span class="badge badge-primary badge-pill" id="headingVille" style="display:inline;"> <a href="#" style="color:#FFF" data-toggle="collapse" data-target="#collapseVille" aria-expanded="false" aria-controls="collapseVille">Modifie</a></span>
+			  </p>
+			  
+			
+			 
+			 	<div id="collapseVille" class="collapse" aria-labelledby="headingVille" data-parent="#accordionExample">
+					<form method="post" action="{{path('commnder')}}" id="form_Ville">
+
+						<input type="hidden" name="_method" value="Ville">
+						<input type="hidden" name="_token" value="{{ csrf_token('user'~ app.user.id)}}">
+
+						<div class="form-group">
+							<label for="Ville">Votre Ville
+							</label><br/>
+							<input type="text" name="Ville" value="{{address.Ville}}" class="form-control" id="Ville">
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary">Enregistre les modification</button>
+							<button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapseVille" aria-expanded="false" aria-controls="collapseVille">
+								Annuler
+							</button>
+						</div>
+					</form>
+				</div>
+			 
+			
+
+            
+
+				  <p class="list-group-item d-flex justify-content-between align-items-center list-group-item-action list-group-item-info">
+			   <span>Rue :</span>
+			  {{address.Rue}}
+              <span class="badge badge-primary badge-pill" id="headingRue" style="display:inline;"> <a href="#" style="color:#FFF" data-toggle="collapse" data-target="#collapseRue" aria-expanded="false" aria-controls="collapseRue">Modifie</a></span>
+			  </p>
+			  
+				<div id="collapseRue" class="collapse" aria-labelledby="headingRue" data-parent="#accordionExample">
+					<form method="post" action="{{path('commnder')}}" id="form_Rue">
+
+						<input type="hidden" name="_method" value="Rue">
+						<input type="hidden" name="_token" value="{{ csrf_token('user'~ app.user.id)}}">
+
+						<div class="form-group">
+							<label for="Rue">Votre Rue
+							</label><br/>
+							<input type="text" name="Rue" value="{{address.Rue}}" class="form-control" id="Rue">
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary">Enregistre les modification</button>
+							<button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapseRue" aria-expanded="false" aria-controls="collapseRue">
+								Annuler
+							</button>
+						</div>
+					</form>
+				</div>
+
+
+
+
+              <p  class="list-group-item d-flex justify-content-between align-items-center list-group-item-action list-group-item-success">
+                <span>Code Postal :</span>
+				{{address.CodePostal}}
+                <span class="badge badge-primary badge-pill" id="headingCodePostal" style="display:inline;"> <a href="#" style="color:#FFF" data-toggle="collapse" data-target="#collapseCodePostal" aria-expanded="false" aria-controls="collapseCodePostal">Modifie</a></span>    
+			  </p>
+					
+					
+
+					<div id="collapseCodePostal" class="collapse" aria-labelledby="headingCodePostal" data-parent="#accordionExample">
+					<form method="post" action="{{path('commnder')}}" id="form_CodePostal">
+
+						<input type="hidden" name="_method" value="CodePostal">
+						<input type="hidden" name="_token" value="{{ csrf_token('user'~ app.user.id)}}">
+
+						<div class="form-group">
+							<label for="CodePostal">Votre Code Postal
+							</label><br/>
+							<input type="text" name="CodePostal" value="{{address.CodePostal}}" class="form-control" id="CodePostal">
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary">Enregistre les modification</button>
+							<button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapseCodePostal" aria-expanded="false" aria-controls="collapseCodePostal">
+								Annuler
+							</button>
+						</div>
+					</form>
+				</div>
+
+
+				    <p  class="list-group-item d-flex justify-content-between align-items-center list-group-item-action list-group-item-success">
+                <span>Boite Postal :</span>
+				{{address.BoitePostal}}
+                <span class="badge badge-primary badge-pill" id="headingBoitePostal" style="display:inline;"> <a href="#" style="color:#FFF" data-toggle="collapse" data-target="#collapseBoitePostal" aria-expanded="false" aria-controls="collapseBoitePostal">Modifie</a></span>    
+			  </p>
+					
+					
+
+					<div id="collapseBoitePostal" class="collapse" aria-labelledby="headingBoitePostal" data-parent="#accordionExample">
+					<form method="post" action="{{path('commnder')}}" id="form_BoitePostal">
+
+						<input type="hidden" name="_method" value="BoitePostal">
+						<input type="hidden" name="_token" value="{{ csrf_token('user'~ app.user.id)}}">
+
+						<div class="form-group">
+							<label for="BoitePostal">Votre Boite Postal
+							</label><br/>
+							<input type="text" name="BoitePostal" value="{{address.BoitePostal}}" class="form-control" id="BoitePostal">
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary">Enregistre les modification</button>
+							<button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapseBoitePostal" aria-expanded="false" aria-controls="collapseBoitePostal">
+								Annuler
+							</button>
+						</div>
+					</form>
+				</div>
+
+
+
+              <p  class="list-group-item d-flex justify-content-between align-items-center list-group-item-action list-group-item-secondary ">
+			  <span>Numero Telephone :</span>
+			  {{app.user.phone}}
+              <span class="badge badge-primary badge-pill" id="headingphone" style="display:inline;"> <a href="#" style="color:#FFF" data-toggle="collapse" data-target="#collapsephone" aria-expanded="false" aria-controls="collapsephone">Modifie</a></span>
+			  </p>
+				  
+
+
+				<div id="collapsephone" class="collapse" aria-labelledby="headingphone" data-parent="#accordionExample">
+					<form method="post" action="{{path('commnder')}}" id="form_phone">
+
+						<input type="hidden" name="_method" value="phone">
+						<input type="hidden" name="_token" value="{{ csrf_token('user'~ app.user.id)}}">
+
+						<div class="form-group">
+							<label for="phone">Votre numero de telephone
+							</label><br/>
+							<input type="text" name="phone" value="{{app.user.phone}}" class="form-control" id="phone">
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary">Enregistre les modification</button>
+							<button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapsephone" aria-expanded="false" aria-controls="collapsephone">
+								Annuler
+							</button>
+						</div>
+					</form>
+				</div>
+
+
+
+
+
+
+            </div>
+          <!--Ends here -->  
+      </div>
+	   <div class="card-footer bg-secondary border-danger text-right">
+		 <a href="{{path('panier_index')}}" class="btn btn-success btn-sm btn-lg" style="float:left">Retourner au panier</a>
+          <a href="{{path('commnder_reglement')}}" class="btn btn-info btn-sm btn-lg">Livre à cette adresse</a> 
+	      
+	      
+      </div>
+    </div>
+  </div>
+	</div>
+
+
+
+
+
+	{# <div class="container">
+		<h3>
+			Comfirmer l'adresse livraison
+		</h3>
+		<div class="row flex text-small mx-auto mt-auto">
+
+			<div class="col-4">
+				<div class="card bg-light mb-4">
+					<div class="card-body">
+						<div class="row flex-wrap">
+							<div class="card-header bg-white">
+
+								<h5 class="card-title text-right text-top">{{app.user.fisrtname}}</h5>
+							</div>
+							<p class="card-text text-top">{{address.Ville}}
+
+								<br>{{address.Region}}
+
+								<br>{{address.CodePostal}}
+
+								<br>{{address.Pays}}
+								<br>{{app.user.phone}}
+								<br>
+							</p>
+
+
+						</div>
+						<div class="card-footer text-muted text-center bg-white">
+							<a href="{{path('commnder_reglement')}}" class="btn btn-success card-link">Livre à cette adresse
+							</a>
+
+							<a href="{{path('app_adresse_new')}}" class="btn btn-success card-link">Edite</a>
+
+						</div>
+
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div> #}
+{% endblock %}
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock %}

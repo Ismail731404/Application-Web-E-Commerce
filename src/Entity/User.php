@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use DateTime;
+use DateInterval;
+use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\InheritanceType;
@@ -10,6 +12,7 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -25,10 +28,13 @@ class User implements UserInterface, \Serializable
 {
 
 
+
     public function __construct()
     {
-        $this->created_at = new DateTime('now');
-        $this->update_at = new DateTime('now');
+
+        $this->created_at = $this->getTime();
+        $this->update_at = $this->getTime();
+        $this->lockaccount = false;
     }
 
     /**
@@ -126,6 +132,11 @@ class User implements UserInterface, \Serializable
      */
     private $lastLogin;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $lockaccount;
+
 
 
     public function getId(): ?int
@@ -185,7 +196,7 @@ class User implements UserInterface, \Serializable
     public function setPassword(string $password): self
     {
         $this->password = $password;
-        $this->setUpdateAt(new DateTime('now'));
+        $this->setUpdateAt($this->getTime());
         return $this;
     }
 
@@ -213,8 +224,9 @@ class User implements UserInterface, \Serializable
 
     public function setFisrtName(string $FisrtName): self
     {
+
         $this->FisrtName = $FisrtName;
-        $this->setUpdateAt(new DateTime('now'));
+        $this->setUpdateAt($this->getTime());
         return $this;
     }
 
@@ -226,7 +238,7 @@ class User implements UserInterface, \Serializable
     public function setLastName(string $LastName): self
     {
         $this->LastName = $LastName;
-        $this->setUpdateAt(new DateTime('now'));
+        $this->setUpdateAt($this->getTime());
         return $this;
     }
 
@@ -240,7 +252,7 @@ class User implements UserInterface, \Serializable
     {
 
         $this->phone = $phone;
-        $this->setUpdateAt(new DateTime('now'));
+        $this->setUpdateAt($this->getTime());
         return $this;
     }
 
@@ -296,7 +308,7 @@ class User implements UserInterface, \Serializable
     public function setActivationToken(?string $activation_token): self
     {
         $this->activation_token = $activation_token;
-        $this->setUpdateAt(new DateTime('now'));
+        $this->setUpdateAt($this->getTime());
         return $this;
     }
 
@@ -308,7 +320,7 @@ class User implements UserInterface, \Serializable
     public function setResetToken(?string $reset_token): self
     {
         $this->reset_token = $reset_token;
-        $this->setUpdateAt(new DateTime('now'));
+        $this->setUpdateAt($this->getTime());
         return $this;
     }
     /** @see \Serializable::serialize() */
@@ -344,7 +356,7 @@ class User implements UserInterface, \Serializable
     public function setIndicateur(string $indicateur): self
     {
         $this->indicateur = $indicateur;
-        $this->setUpdateAt(new DateTime('now'));
+        $this->setUpdateAt($this->getTime());
         return $this;
     }
 
@@ -356,6 +368,29 @@ class User implements UserInterface, \Serializable
     public function setlastLogin(?\DateTimeInterface $lastLogin): self
     {
         $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return DateTime
+     */
+    private function getTime(): DateTime
+    {
+        $date = new DateTime("now", new DateTimeZone('UTC'));
+        return   $date->add(new DateInterval('PT3H'));
+    }
+
+    public function getLockaccount(): ?bool
+    {
+        return $this->lockaccount;
+    }
+
+    public function setLockaccount(?bool $lockaccount): self
+    {
+        $this->lockaccount = $lockaccount;
 
         return $this;
     }

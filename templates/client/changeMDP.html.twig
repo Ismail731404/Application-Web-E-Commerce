@@ -3,7 +3,9 @@
 	Change le Mot de passe
 {% endblock %}
 {% block fils %}
-	<div class="card text-small mx-auto mb-auto mt-auto">
+
+<div class="container">
+		<div class="card text-small mx-auto mb-auto mt-auto">
 		<div class="card-body">
 			<div class="card-header">
 				{% for message in app.flashes('message') %}
@@ -20,15 +22,12 @@
 			</div>
 		</div>
 	</div>
+</div>
 
 {% endblock %}
 
 {% block javascripts %}
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js"></script>
 	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
 	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/additional-methods.min.js"></script>
-
-	<script src="{{ asset('js/changeMDP-valide.js') }}"></script>
-
-
+	<script src="{{ asset('scripts/JSFORMPNAC/changeMDP-valide.js') }}"></script>
 {% endblock %}

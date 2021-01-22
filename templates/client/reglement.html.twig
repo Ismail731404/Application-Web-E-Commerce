@@ -1,0 +1,146 @@
+{% extends "base.html.twig" %}
+{% block title  %}
+	Vos paiement
+{% endblock %}
+
+{% block css %}
+    td  
+   {
+	   padding-left: 15px; 
+	   padding-right:15px;
+	  
+	   
+   }
+    th  
+   {
+	   padding-left: 15px; 
+	   padding-right:15px;
+	  
+   }
+{% endblock %}
+{% block fils %}
+	<div class="card text-small mx-auto mb-auto mt-5">
+		<div class="card-body">
+			<div class="card-header">
+				{% for message in app.flashes('warning') %}
+
+					<div class="text-warning text-small">
+						{{message}}
+					</div>
+
+				{% endfor %}
+
+				<h3 class="h3 mb-3 font-weight-normal card-title text-center">Vos paiement</h3>
+			</div>
+			<hr>
+			<p>Portefeuille
+			</p>
+
+			{% if app.user.reglements %}
+
+				<p>Votre liste de methode des paiement</p>
+				<table>
+
+					{% for reglement  in app.user.reglements %}
+						
+						<tr>
+							<th>
+								{% if reglement.defaultepaiement %}
+									Par default
+								{% endif %}
+
+							</th>
+							<th>
+								{% if reglement.type == 'visa' or reglement.type == 'Visa' %}
+									Type
+								{% endif %}
+
+							</th>
+
+							<th>
+								Numero de carte
+
+							</th>
+
+
+							<th>Pin</th>
+
+
+							<th> Date d'expiration </t>
+							<th>
+								
+
+							</th>
+
+						</tr>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<tr>
+							<td>
+								{% if reglement.defaultepaiement %}
+
+									Oui
+								{% endif %}
+
+								</td>
+								<td>
+								{% if reglement.type == 'visa' %}
+									<i class="fab fa-cc-visa fa-2x"></i>
+								{% endif %}
+
+							</td>
+
+							<td>
+								{{reglement.numerocarte |  slice(0, 6)}}
+								******
+
+							</td>
+
+
+							<td>****</td>
+
+
+							<td>{{reglement.DateExpiration | date('d/m')}}</td>
+							<td>
+								<a href="{{path('default_paiment', {'id': reglement.id})}}" class="btn btn-success" id="default" style="padding-top: 0; padding-bottom: 0; height: 20px; font-family: 'Roboto', sans-serif;
+                                   font-size: 12px;">par defaut</a>
+
+							</td>
+
+						</tr>
+					{% endfor %}
+				</table>
+			{% endif %}
+			<hr>
+			<h3>Ajoutez une nouvelle méthode de paiement</h3>
+			
+			<br>
+			<h4>Saisissez les informations de votre carte :</h4>
+
+			{{form_start(form)}}
+			{{form_row(form.type)}}
+			{{form_row(form.numerocarte)}}
+
+			{{form_row(form.DateExpiration)}}
+
+			{{form_row(form.pin)}}
+				
+				
+			<button type="submit"  id="" class="btn btn-primary btn-lg btn-block">Enregistre</button>		
+			<a type="button" href="{{path('app_account_info')}}" id="" class="btn btn-primary btn-lg btn-block">Annuler</a>
+			{{form_end(form)}}
+
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<script src="{{ asset('scripts/JSFORMPNAC/defaultpaimenetbtn.js') }}"></script>
+
+{% endblock %}
